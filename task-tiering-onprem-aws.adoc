@@ -1,0 +1,396 @@
+---
+sidebar: sidebar 
+permalink: task-tiering-onprem-aws.html 
+keywords: data tiering, fabricpool, cloud tiering, tiering cold data, tiering inactive data, tiering aff, tiering fas, tiering ontap, tiering volumes, tier data, tier cold data, tier fas, tier aff, tier ontap, aws, amazon, s3 
+summary: 'Libérez de l"espace sur vos clusters ONTAP sur site en hiérarchisant les données inactives sur Amazon S3.' 
+---
+= Hiérarchiser les données des clusters ONTAP sur site vers Amazon S3 dans NetApp Cloud Tiering
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Libérez de l'espace sur vos clusters ONTAP sur site en hiérarchisant les données inactives sur Amazon S3 dans NetApp Cloud Tiering.
+
+
+
+== Démarrage rapide
+
+Commencez rapidement en suivant ces étapes.  Les détails de chaque étape sont fournis dans les sections suivantes de cette rubrique.
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["Un"]Identifiez la méthode de configuration que vous utiliserez
+[role="quick-margin-para"]
+Choisissez si vous connecterez votre cluster ONTAP sur site directement à AWS S3 via l'Internet public, ou si vous utiliserez un VPN ou AWS Direct Connect et acheminerez le trafic via une interface de point de terminaison VPC privée vers AWS S3.
+
+[role="quick-margin-para"]
+<<Schémas de réseau pour les options de connexion,Voir les méthodes de connexion disponibles.>>
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["Deux"]Préparez votre agent de console
+[role="quick-margin-para"]
+Si vous avez déjà déployé l'agent de console dans votre AWS VPC ou sur vos locaux, vous êtes prêt.  Sinon, vous devrez créer l’agent pour hiérarchiser les données ONTAP vers le stockage AWS S3.  Vous devrez également personnaliser les paramètres réseau de l'agent afin qu'il puisse se connecter à AWS S3.
+
+[role="quick-margin-para"]
+<<Prepare your agent,Découvrez comment créer un agent et comment définir les paramètres réseau requis.>>
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["Trois"]Préparez votre cluster ONTAP sur site
+[role="quick-margin-para"]
+Découvrez votre cluster ONTAP dans la console NetApp , vérifiez que le cluster répond aux exigences minimales et personnalisez les paramètres réseau afin que le cluster puisse se connecter à AWS S3.
+
+[role="quick-margin-para"]
+<<Préparez votre cluster ONTAP,Découvrez comment préparer votre cluster ONTAP sur site.>>
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-4.png["Quatre"]Préparez Amazon S3 comme cible de hiérarchisation
+[role="quick-margin-para"]
+Configurez les autorisations permettant à l’agent de créer et de gérer le compartiment S3.  Vous devrez également configurer des autorisations pour le cluster ONTAP sur site afin qu'il puisse lire et écrire des données dans le bucket S3.
+
+[role="quick-margin-para"]
+<<Configurer les autorisations S3,Découvrez comment configurer les autorisations pour l’agent et pour votre cluster sur site.>>
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-5.png["Cinq"]Activer la hiérarchisation du cloud sur le système
+[role="quick-margin-para"]
+Sélectionnez un système sur site, sélectionnez *Activer* pour le service Cloud Tiering et suivez les invites pour hiérarchiser les données vers Amazon S3.
+
+[role="quick-margin-para"]
+<<Transférez les données inactives de votre premier cluster vers Amazon S3,Découvrez comment activer la hiérarchisation pour vos volumes.>>
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-6.png["Six"]Configurer les licences
+[role="quick-margin-para"]
+Une fois votre essai gratuit terminé, payez Cloud Tiering via un abonnement à la carte, une licence BYOL ONTAP Cloud Tiering ou une combinaison des deux :
+
+[role="quick-margin-list"]
+* Pour vous abonner depuis AWS Marketplace, https://aws.amazon.com/marketplace/pp/prodview-oorxakq6lq7m4?sr=0-8&ref_=beagle&applicationId=AWSMPContessa["accéder à l'offre Marketplace"^] , sélectionnez *S'abonner*, puis suivez les instructions.
+* Pour payer en utilisant une licence Cloud Tiering BYOL, envoyez un e-mail à : ng-cloud-tiering@netapp.com?subject=Licensing [contactez-nous si vous devez en acheter une], puislink:https://docs.netapp.com/us-en/bluexp-digital-wallet/task-manage-data-services-licenses.html["ajoutez-le à la console NetApp"] .
+
+
+
+
+== Schémas de réseau pour les options de connexion
+
+Il existe deux méthodes de connexion que vous pouvez utiliser lors de la configuration de la hiérarchisation des systèmes ONTAP sur site vers AWS S3.
+
+* Connexion publique - Connectez directement le système ONTAP à AWS S3 à l'aide d'un point de terminaison S3 public.
+* Connexion privée - Utilisez un VPN ou AWS Direct Connect et acheminez le trafic via une interface de point de terminaison VPC qui utilise une adresse IP privée.
+
+
+Le diagramme suivant montre la méthode de *connexion publique* et les connexions que vous devez préparer entre les composants.  Vous pouvez utiliser l'agent de console que vous avez installé sur vos locaux ou un agent que vous avez déployé dans AWS VPC.
+
+image:diagram_cloud_tiering_aws_public.png["Un diagramme montrant comment Cloud Tiering communique via une connexion publique avec les volumes du cluster et le stockage AWS S3 où se trouvent les données inactives."]
+
+Le diagramme suivant montre la méthode de *connexion privée* et les connexions que vous devez préparer entre les composants.  Vous pouvez utiliser l'agent de console que vous avez installé sur vos locaux ou un agent que vous avez déployé dans AWS VPC.
+
+image:diagram_cloud_tiering_aws_private.png["Un diagramme montrant comment Cloud Tiering communique via une connexion privée avec les volumes du cluster et le stockage AWS S3 où se trouvent les données inactives."]
+
+
+NOTE: La communication entre un agent et S3 est destinée uniquement à la configuration du stockage d'objets.
+
+
+
+== Préparez votre agent de console
+
+L'agent active les fonctionnalités de hiérarchisation à partir de la console NetApp .  Un agent est requis pour hiérarchiser vos données ONTAP inactives.
+
+
+
+=== Créer ou changer d'agents
+
+Si vous avez déjà un agent déployé dans votre AWS VPC ou dans vos locaux, alors vous êtes prêt.  Sinon, vous devrez créer un agent dans l’un de ces emplacements pour hiérarchiser les données ONTAP vers le stockage AWS S3.  Vous ne pouvez pas utiliser un agent déployé chez un autre fournisseur de cloud.
+
+* https://docs.netapp.com/us-en/bluexp-setup-admin/concept-connectors.html["En savoir plus sur les agents de console"^]
+* https://docs.netapp.com/us-en/bluexp-setup-admin/task-quick-start-connector-aws.html["Déploiement d'un agent dans AWS"^]
+* https://docs.netapp.com/us-en/bluexp-setup-admin/task-quick-start-connector-on-prem.html["Installation d'un agent sur un hôte Linux"^]
+
+
+
+
+=== Exigences de mise en réseau des agents
+
+* Assurez-vous que le réseau sur lequel l'agent est installé permet les connexions suivantes :
++
+** Une connexion HTTPS via le port 443 au service Cloud Tiering et à votre stockage d'objets S3(https://docs.netapp.com/us-en/bluexp-setup-admin/task-set-up-networking-aws.html#endpoints-contacted-for-day-to-day-operations["voir la liste des points de terminaison"^] )
+** Une connexion HTTPS via le port 443 vers votre LIF de gestion de cluster ONTAP
+
+
+* https://docs.netapp.com/us-en/bluexp-setup-admin/reference-permissions-aws.html#cloud-tiering["Assurez-vous que l'agent dispose des autorisations nécessaires pour gérer le compartiment S3"^]
+* Si vous disposez d'une connexion Direct Connect ou VPN de votre cluster ONTAP au VPC et que vous souhaitez que la communication entre l'agent et S3 reste dans votre réseau interne AWS (une connexion *privée*), vous devrez activer une interface de point de terminaison VPC sur S3.<<Configurez votre système pour une connexion privée à l'aide d'une interface de point de terminaison VPC,Découvrez comment configurer une interface de point de terminaison VPC.>>
+
+
+
+
+== Préparez votre cluster ONTAP
+
+Vos clusters ONTAP doivent répondre aux exigences suivantes lors de la hiérarchisation des données vers Amazon S3.
+
+
+
+=== Exigences ONTAP
+
+Plateformes ONTAP prises en charge::
++
+--
+* Lorsque vous utilisez ONTAP 9.8 et versions ultérieures : vous pouvez hiérarchiser les données des systèmes AFF ou des systèmes FAS avec des agrégats entièrement SSD ou des agrégats entièrement HDD.
+* Lorsque vous utilisez ONTAP 9.7 et versions antérieures : vous pouvez hiérarchiser les données des systèmes AFF ou des systèmes FAS avec des agrégats entièrement SSD.
+
+
+--
+Versions ONTAP prises en charge::
++
+--
+* ONTAP 9.2 ou version ultérieure
+* ONTAP 9.7 ou version ultérieure est requis si vous prévoyez d'utiliser une connexion AWS PrivateLink au stockage d'objets
+
+
+--
+Volumes et agrégats pris en charge:: Le nombre total de volumes que Cloud Tiering peut hiérarchiser peut être inférieur au nombre de volumes sur votre système ONTAP .  C'est parce que les volumes ne peuvent pas être hiérarchisés à partir de certains agrégats.  Consultez la documentation ONTAP pour https://docs.netapp.com/us-en/ontap/fabricpool/requirements-concept.html#functionality-or-features-not-supported-by-fabricpool["fonctionnalités ou caractéristiques non prises en charge par FabricPool"^] .
+
+
+
+NOTE: Cloud Tiering prend en charge les volumes FlexGroup à partir d' ONTAP 9.5.  La configuration fonctionne de la même manière que n’importe quel autre volume.
+
+
+
+=== Exigences de mise en réseau des clusters
+
+* Le cluster nécessite une connexion HTTPS entrante de l'agent de console au LIF de gestion du cluster.
++
+Une connexion entre le cluster et Cloud Tiering n'est pas requise.
+
+* Un LIF intercluster est requis sur chaque nœud ONTAP qui héberge les volumes que vous souhaitez hiérarchiser.  Ces LIF interclusters doivent pouvoir accéder au magasin d’objets.
++
+Le cluster initie une connexion HTTPS sortante via le port 443 depuis les LIF interclusters vers le stockage Amazon S3 pour les opérations de hiérarchisation.  ONTAP lit et écrit des données vers et depuis le stockage d'objets : le stockage d'objets ne s'initialise jamais, il répond simplement.
+
+* Les LIF intercluster doivent être associés à l'_IPspace_ ONTAP doit utiliser pour se connecter au stockage d'objets. https://docs.netapp.com/us-en/ontap/networking/standard_properties_of_ipspaces.html["En savoir plus sur IPspaces"^] .
++
+Lorsque vous configurez Cloud Tiering, vous êtes invité à indiquer l'espace IP à utiliser.  Vous devez choisir l’espace IP auquel ces LIF sont associés.  Il peut s'agir de l'espace IP « par défaut » ou d'un espace IP personnalisé que vous avez créé.
+
++
+Si vous utilisez un espace IP différent de « Par défaut », vous devrez peut-être créer une route statique pour accéder au stockage d'objets.
+
++
+Tous les LIF interclusters au sein de l'espace IP doivent avoir accès au magasin d'objets.  Si vous ne pouvez pas configurer cela pour l'espace IP actuel, vous devrez créer un espace IP dédié où tous les LIF interclusters ont accès au magasin d'objets.
+
+* Si vous utilisez un point de terminaison d'interface VPC privé dans AWS pour la connexion S3, pour que HTTPS/443 soit utilisé, vous devrez charger le certificat de point de terminaison S3 dans le cluster ONTAP .<<Configurez votre système pour une connexion privée à l'aide d'une interface de point de terminaison VPC,Découvrez comment configurer une interface de point de terminaison VPC et charger le certificat S3.>>
+* <<Configurer les autorisations S3,Assurez-vous que votre cluster ONTAP dispose des autorisations nécessaires pour accéder au bucket S3.>>
+
+
+
+
+=== Découvrez votre cluster ONTAP dans la console NetApp
+
+Vous devez découvrir votre cluster ONTAP sur site dans la console NetApp avant de pouvoir commencer à hiérarchiser les données froides vers le stockage d'objets.  Vous devrez connaître l’adresse IP de gestion du cluster et le mot de passe du compte utilisateur administrateur pour ajouter le cluster.
+
+https://docs.netapp.com/us-en/bluexp-ontap-onprem/task-discovering-ontap.html["Apprenez à découvrir un cluster"^] .
+
+
+
+== Préparez votre environnement AWS
+
+Lorsque vous configurez la hiérarchisation des données pour un nouveau cluster, vous êtes invité à indiquer si vous souhaitez que le service crée un compartiment S3 ou si vous souhaitez sélectionner un compartiment S3 existant dans le compte AWS où l'agent est configuré.  Le compte AWS doit disposer d’autorisations et d’une clé d’accès que vous pouvez saisir dans Cloud Tiering.  Le cluster ONTAP utilise la clé d’accès pour hiérarchiser les données entrantes et sortantes de S3.
+
+Par défaut, la hiérarchisation du Cloud crée le bucket pour vous.  Si vous souhaitez utiliser votre propre bucket, vous pouvez en créer un avant de démarrer l'assistant d'activation de la hiérarchisation, puis sélectionner ce bucket dans l'assistant. https://docs.netapp.com/us-en/bluexp-s3-storage/task-add-s3-bucket.html["Découvrez comment créer des buckets S3 à partir de la console NetApp"^] .  Le bucket doit être utilisé exclusivement pour stocker les données inactives de vos volumes - il ne peut pas être utilisé à d'autres fins.  Le bucket S3 doit être dans unlink:reference-aws-support.html#supported-aws-regions["région qui prend en charge le Cloud Tiering"] .
+
+
+NOTE: Si vous envisagez de configurer Cloud Tiering pour utiliser une classe de stockage à moindre coût vers laquelle vos données hiérarchisées seront transférées après un certain nombre de jours, vous ne devez sélectionner aucune règle de cycle de vie lors de la configuration du bucket dans votre compte AWS.  Cloud Tiering gère les transitions du cycle de vie.
+
+
+
+=== Configurer les autorisations S3
+
+Vous devrez configurer deux ensembles d’autorisations :
+
+* Autorisations pour l'agent afin qu'il puisse créer et gérer le bucket S3.
+* Autorisations pour le cluster ONTAP sur site afin qu’il puisse lire et écrire des données dans le bucket S3.
+
+
+.Étapes
+. *Autorisations de l'agent de console*:
++
+** Confirmer que https://docs.netapp.com/us-en/bluexp-setup-admin/reference-permissions-aws.html#iam-policies["ces autorisations S3"^] font partie du rôle IAM qui fournit des autorisations à l'agent.  Ils auraient dû être inclus par défaut lorsque vous avez déployé l’agent pour la première fois.  Sinon, vous devrez ajouter les autorisations manquantes. Voir le https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-edit.html["Documentation AWS : Modification des politiques IAM"^] pour les instructions.
+** Le bucket par défaut créé par Cloud Tiering a le préfixe « fabric-pool ».  Si vous souhaitez utiliser un préfixe différent pour votre bucket, vous devrez personnaliser les autorisations avec le nom que vous souhaitez utiliser.  Dans les autorisations S3, vous verrez une ligne `"Resource": ["arn:aws:s3:::fabric-pool*"]` .  Vous devrez remplacer « fabric-pool » par le préfixe que vous souhaitez utiliser.  Par exemple, si vous souhaitez utiliser « tiering-1 » comme préfixe pour vos buckets, vous modifierez cette ligne en `"Resource": ["arn:aws:s3:::tiering-1*"]` .
++
+Si vous souhaitez utiliser un préfixe différent pour les buckets que vous utiliserez pour des clusters supplémentaires dans cette même organisation NetApp Console, vous pouvez ajouter une autre ligne avec le préfixe pour d'autres buckets. Par exemple:
+
++
+`"Resource": ["arn:aws:s3:::tiering-1*"]`
+`"Resource": ["arn:aws:s3:::tiering-2*"]`
+
++
+Si vous créez votre propre bucket et n'utilisez pas de préfixe standard, vous devez modifier cette ligne en `"Resource": ["arn:aws:s3:::*"]` afin que n'importe quel bucket soit reconnu.  Cependant, cela peut exposer tous vos buckets au lieu de ceux que vous avez conçus pour contenir les données inactives de vos volumes.
+
+
+
+. *Autorisations de cluster*:
++
+** Lorsque vous activez le service, l’assistant de hiérarchisation vous invite à saisir une clé d’accès et une clé secrète. Ces informations d’identification sont transmises au cluster ONTAP afin ONTAP puisse hiérarchiser les données vers le compartiment S3.  Pour cela, vous devrez créer un utilisateur IAM avec les autorisations suivantes :
++
+[source, json]
+----
+"s3:ListAllMyBuckets",
+"s3:ListBucket",
+"s3:GetBucketLocation",
+"s3:GetObject",
+"s3:PutObject",
+"s3:DeleteObject"
+----
++
+Voir le https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user.html["Documentation AWS : Création d'un rôle pour déléguer des autorisations à un utilisateur IAM"^] pour plus de détails.
+
+
+
+. Créez ou localisez la clé d’accès.
++
+Cloud Tiering transmet la clé d’accès au cluster ONTAP .  Les informations d’identification ne sont pas stockées dans le service Cloud Tiering.
+
++
+https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html["Documentation AWS : Gestion des clés d'accès pour les utilisateurs IAM"^]
+
+
+
+
+
+=== Configurez votre système pour une connexion privée à l'aide d'une interface de point de terminaison VPC
+
+Si vous prévoyez d'utiliser une connexion Internet publique standard, toutes les autorisations sont définies par l'agent et vous n'avez rien d'autre à faire. Ce type de connexion est indiqué dans la section<<Schémas de réseau pour les options de connexion,premier diagramme ci-dessus>> .
+
+Si vous souhaitez disposer d'une connexion Internet plus sécurisée entre votre centre de données local et le VPC, vous pouvez sélectionner une connexion AWS PrivateLink dans l'assistant d'activation de la hiérarchisation.  Cela est nécessaire si vous prévoyez d'utiliser un VPN ou AWS Direct Connect pour connecter votre système sur site via une interface de point de terminaison VPC qui utilise une adresse IP privée.  Ce type de connexion est illustré dans le<<Schémas de réseau pour les options de connexion,deuxième diagramme ci-dessus>> .  Si vous souhaitez disposer d'une connexion Internet plus sécurisée entre votre centre de données local et le VPC, vous pouvez sélectionner une connexion AWS PrivateLink dans l'assistant d'activation de la hiérarchisation.  Cela est nécessaire si vous prévoyez d'utiliser un VPN ou AWS Direct Connect pour connecter votre système sur site via une interface de point de terminaison VPC qui utilise une adresse IP privée.  Ce type de connexion est illustré dans le<<Schémas de réseau pour les options de connexion,deuxième diagramme ci-dessus>> .
+
+. Créez une configuration de point de terminaison d’interface à l’aide de la console Amazon VPC ou de la ligne de commande. https://docs.aws.amazon.com/AmazonS3/latest/userguide/privatelink-interface-endpoints.html["Voir les détails sur l'utilisation d'AWS PrivateLink pour Amazon S3"^] .
+. Modifiez la configuration du groupe de sécurité associé à l’agent.  Vous devez modifier la politique en « Personnalisé » (à partir de « Accès complet ») et vous devez<<Configurer les autorisations S3,ajouter les autorisations d'agent S3 requises>> comme indiqué précédemment.
++
+image:screenshot_tiering_aws_sec_group.png["Une capture d’écran du groupe de sécurité AWS associé à l’agent."]
+
++
+Si vous utilisez le port 80 (HTTP) pour communiquer avec le point de terminaison privé, vous êtes prêt.  Vous pouvez désormais activer Cloud Tiering sur le cluster.
+
++
+Si vous utilisez le port 443 (HTTPS) pour la communication avec le point de terminaison privé, vous devez copier le certificat du point de terminaison VPC S3 et l'ajouter à votre cluster ONTAP , comme indiqué dans les 4 étapes suivantes.
+
+. Obtenez le nom DNS du point de terminaison à partir de la console AWS.
++
+image:screenshot_endpoint_dns_aws_console.png["Une capture d’écran du nom DNS du point de terminaison VPC à partir de la console AWS."]
+
+. Obtenez le certificat à partir du point de terminaison VPC S3.  Vous faites cela en https://docs.netapp.com/us-en/bluexp-setup-admin/task-maintain-connectors.html#connect-to-the-linux-vm["connexion à la machine virtuelle qui héberge l'agent"^] et exécutez la commande suivante.  Lors de la saisie du nom DNS du point de terminaison, ajoutez « bucket » au début, en remplaçant le « * » :
++
+[source, text]
+----
+[ec2-user@ip-10-160-4-68 ~]$ openssl s_client -connect bucket.vpce-0ff5c15df7e00fbab-yxs7lt8v.s3.us-west-2.vpce.amazonaws.com:443 -showcerts
+----
+. À partir de la sortie de cette commande, copiez les données du certificat S3 (toutes les données comprises entre les balises BEGIN / END CERTIFICATE incluses) :
++
+[source, text]
+----
+Certificate chain
+0 s:/CN=s3.us-west-2.amazonaws.com`
+   i:/C=US/O=Amazon/OU=Server CA 1B/CN=Amazon
+-----BEGIN CERTIFICATE-----
+MIIM6zCCC9OgAwIBAgIQA7MGJ4FaDBR8uL0KR3oltTANBgkqhkiG9w0BAQsFADBG
+…
+…
+GqvbOz/oO2NWLLFCqI+xmkLcMiPrZy+/6Af+HH2mLCM4EsI2b+IpBmPkriWnnxo=
+-----END CERTIFICATE-----
+----
+. Connectez-vous à l'interface de ligne de commande du cluster ONTAP et appliquez le certificat que vous avez copié à l'aide de la commande suivante (remplacez le nom de votre propre machine virtuelle de stockage) :
++
+[source, text]
+----
+cluster1::> security certificate install -vserver <svm_name> -type server-ca
+Please enter Certificate: Press <Enter> when done
+----
+
+
+
+
+== Transférez les données inactives de votre premier cluster vers Amazon S3
+
+Après avoir préparé votre environnement AWS, commencez à hiérarchiser les données inactives de votre premier cluster.
+
+.Ce dont vous aurez besoin
+* https://docs.netapp.com/us-en/bluexp-ontap-onprem/task-discovering-ontap.html["Un système sur site géré dans la console"^] .
+* Une clé d’accès AWS pour un utilisateur IAM disposant des autorisations S3 requises.
+
+
+.Étapes
+. Sélectionnez le système ONTAP sur site.
+. Cliquez sur *Activer* pour la hiérarchisation du cloud dans le panneau de droite.
++
+Si la destination de hiérarchisation Amazon S3 existe en tant que système sur la page Systèmes, vous pouvez faire glisser le cluster sur le système pour lancer l'assistant de configuration.
+
++
+image:screenshot_setup_tiering_onprem.png["Une capture d’écran qui montre l’option Activer qui apparaît sur le côté droit de l’écran après avoir sélectionné un système ONTAP sur site."]
+
+. *Définir le nom du stockage d’objets* : saisissez un nom pour ce stockage d’objets.  Il doit être unique par rapport à tout autre stockage d’objets que vous pouvez utiliser avec des agrégats sur ce cluster.
+. *Sélectionner le fournisseur* : Sélectionnez *Amazon Web Services* et sélectionnez *Continuer*.
+. *Sélectionner le fournisseur* : Sélectionnez *Amazon Web Services* et sélectionnez *Continuer*.
++
+image:screenshot_tiering_aws_s3_bucket.png["Une capture d’écran montrant les données qui doivent être fournies pour configurer la hiérarchisation dans un bucket S3."]
+
+. Complétez les sections de la page *Configuration de la hiérarchisation* :
++
+.. *S3 Bucket* : ajoutez un nouveau bucket S3 ou sélectionnez un bucket S3 existant, sélectionnez la région du bucket et sélectionnez *Continuer*.
+.. *S3 Bucket* : ajoutez un nouveau bucket S3 ou sélectionnez un bucket S3 existant, sélectionnez la région du bucket et sélectionnez *Continuer*.
++
+Lorsque vous utilisez un agent sur site, vous devez saisir l'ID de compte AWS qui donne accès au compartiment S3 existant ou au nouveau compartiment S3 qui sera créé.
+
++
+Le préfixe _fabric-pool_ est utilisé par défaut car la stratégie IAM de l'agent permet à l'instance d'effectuer des actions S3 sur les buckets nommés avec ce préfixe exact.  Par exemple, vous pouvez nommer le bucket S3 _fabric-pool-AFF1_, où AFF1 est le nom du cluster.  Vous pouvez également définir le préfixe des buckets utilisés pour la hiérarchisation.  Voir<<Configurer les autorisations S3,configuration des autorisations S3>> pour vous assurer que vous disposez des autorisations AWS qui reconnaissent tout préfixe personnalisé que vous prévoyez d'utiliser.
+
+.. *Classe de stockage* : Cloud Tiering gère les transitions du cycle de vie de vos données hiérarchisées.  Les données commencent dans la classe _Standard_, mais vous pouvez créer une règle pour appliquer une classe de stockage différente aux données après un certain nombre de jours.
++
+Sélectionnez la classe de stockage S3 vers laquelle vous souhaitez transférer les données hiérarchisées et le nombre de jours avant que les données ne soient attribuées à cette classe, puis sélectionnez *Continuer*.  Par exemple, la capture d'écran ci-dessous montre que les données hiérarchisées sont attribuées à la classe _Standard-IA_ à partir de la classe _Standard_ après 45 jours dans le stockage d'objets.
+
++
+Si vous choisissez *Conserver les données dans cette classe de stockage*, les données restent dans la classe de stockage _Standard_ et aucune règle n'est appliquée. link:reference-aws-support.html["Voir les classes de stockage prises en charge"^] .
+
++
+image:screenshot_tiering_lifecycle_selection_aws.png["Une capture d'écran montrant comment sélectionner une autre classe de stockage attribuée à vos données après un certain nombre de jours."]
+
++
+Notez que la règle de cycle de vie est appliquée à tous les objets du bucket sélectionné.
+
+.. *Informations d'identification* : saisissez l'ID de clé d'accès et la clé secrète d'un utilisateur IAM disposant des autorisations S3 requises, puis sélectionnez *Continuer*.
++
+L'utilisateur IAM doit être dans le même compte AWS que le bucket que vous avez sélectionné ou créé sur la page *S3 Bucket*.
+
+.. *Réseau* : Saisissez les détails du réseau et sélectionnez *Continuer*.
++
+Sélectionnez l’espace IP dans le cluster ONTAP où résident les volumes que vous souhaitez hiérarchiser.  Les LIF intercluster pour cet espace IP doivent disposer d'un accès Internet sortant afin de pouvoir se connecter au stockage d'objets de votre fournisseur de cloud.
+
++
+Vous pouvez également choisir si vous utiliserez un AWS PrivateLink que vous avez précédemment configuré. <<Configurez votre système pour une connexion privée à l'aide d'une interface de point de terminaison VPC,Voir les informations de configuration ci-dessus.>> Une boîte de dialogue s'affiche pour vous guider dans la configuration du point de terminaison.
+
++
+Vous pouvez également définir la bande passante réseau disponible pour télécharger des données inactives vers le stockage d'objets en définissant le « Taux de transfert maximal ».  Sélectionnez le bouton radio *Limité* et entrez la bande passante maximale pouvant être utilisée, ou sélectionnez *Illimité* pour indiquer qu'il n'y a pas de limite.
+
+
+
+. Sur la page _Volumes hiérarchisés_, sélectionnez les volumes pour lesquels vous souhaitez configurer la hiérarchisation et lancez la page Politique de hiérarchisation :
++
+** Pour sélectionner tous les volumes, cochez la case dans la ligne de titre (image:button_backup_all_volumes.png[""] ) et sélectionnez *Configurer les volumes*.
+** Pour sélectionner plusieurs volumes, cochez la case correspondant à chaque volume (image:button_backup_1_volume.png[""] ) et sélectionnez *Configurer les volumes*.
+** Pour sélectionner un seul volume, sélectionnez la ligne (ouimage:screenshot_edit_icon.gif["modifier l'icône du crayon"] icône) pour le volume.
++
+image:screenshot_tiering_initial_volumes.png["Une capture d'écran qui montre comment sélectionner un seul volume, plusieurs volumes ou tous les volumes, et le bouton Modifier les volumes sélectionnés."]
+
+
+
+. Dans la boîte de dialogue _Politique de hiérarchisation_, sélectionnez une politique de hiérarchisation, ajustez éventuellement les jours de refroidissement pour les volumes sélectionnés et sélectionnez *Appliquer*.
++
+link:concept-cloud-tiering.html#volume-tiering-policies["En savoir plus sur les politiques de hiérarchisation des volumes et les jours de refroidissement"] .
+
++
+image:screenshot_tiering_initial_policy_settings.png["Une capture d’écran qui montre les paramètres de stratégie de hiérarchisation configurables."]
+
+
+
+.Résultat
+Vous avez configuré avec succès la hiérarchisation des données des volumes du cluster vers le stockage d’objets S3.
+
+.Quelle est la prochaine étape ?
+link:task-licensing-cloud-tiering.html["Assurez-vous de vous abonner au service Cloud Tiering"] .
+
+Vous pouvez consulter les informations sur les données actives et inactives du cluster. link:task-managing-tiering.html["En savoir plus sur la gestion de vos paramètres de hiérarchisation"] .
+
+Vous pouvez également créer un stockage d'objets supplémentaire dans les cas où vous souhaitez hiérarchiser les données de certains agrégats d'un cluster vers différents magasins d'objets.  Ou si vous prévoyez d'utiliser FabricPool Mirroring où vos données hiérarchisées sont répliquées vers un magasin d'objets supplémentaire. link:task-managing-object-storage.html["En savoir plus sur la gestion des magasins d'objets"] .

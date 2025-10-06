@@ -1,0 +1,168 @@
+---
+sidebar: sidebar 
+permalink: task-managing-object-storage.html 
+keywords: object storage, mirror object storage, create object storage, remove object storage, swap object storage, display object storage, license 
+summary: 'Une fois que vous avez configuré vos clusters ONTAP sur site pour hiérarchiser les données vers un stockage d"objets particulier, vous pouvez effectuer des tâches de stockage d"objets supplémentaires dans NetApp Cloud Tiering.  Vous pouvez ajouter un nouveau stockage d"objets, mettre en miroir vos données hiérarchisées vers un stockage d"objets secondaire, échanger les stockages d"objets principal et miroir, supprimer un magasin d"objets en miroir d"un agrégat, et bien plus encore.' 
+---
+= Gérer le stockage d'objets utilisé pour la hiérarchisation des données dans NetApp Cloud Tiering
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Une fois que vous avez configuré vos clusters ONTAP sur site pour hiérarchiser les données vers un stockage d'objets particulier, vous pouvez effectuer des tâches de stockage d'objets supplémentaires à l'aide de NetApp Cloud Tiering.  Vous pouvez ajouter un nouveau stockage d'objets, mettre en miroir vos données hiérarchisées vers un stockage d'objets secondaire, échanger les stockages d'objets principal et miroir, supprimer un magasin d'objets en miroir d'un agrégat, et bien plus encore.
+
+
+
+== Afficher les magasins d'objets configurés pour un cluster
+
+Vous pouvez afficher tous les magasins d'objets qui ont été configurés pour chaque cluster et à quels agrégats ils sont attachés.
+
+.Étapes
+. Depuis la page *Clusters*, sélectionnez l'icône de menu d'un cluster et sélectionnez *Object Store Info*.
+. Depuis la page *Clusters*, sélectionnez l'icône de menu d'un cluster et sélectionnez *Object Store Info*.
+. Consultez les détails sur les magasins d’objets.
++
+Cet exemple montre à la fois un magasin d’objets Amazon S3 et Azure Blob attaché à différents agrégats sur un cluster.
+
++
+image:screenshot_tiering_object_store_view.png["Une capture d'écran qui montre les informations de stockage d'objets, qui détaillent la capacité totale utilisée, l'agrégat attaché au magasin d'objets, le nom du magasin d'objets et plus d'informations."]
+
+
+
+
+
+== Ajouter un nouveau magasin d'objets
+
+Vous pouvez ajouter un nouveau magasin d’objets pour les agrégats dans votre cluster.  Après l'avoir créé, vous pouvez le joindre à un agrégat.
+
+.Étapes
+. Depuis la page *Clusters*, sélectionnez l'icône de menu d'un cluster et sélectionnez *Object Store Info*.
+. Depuis la page *Clusters*, sélectionnez l'icône de menu d'un cluster et sélectionnez *Object Store Info*.
+. Sur la page Informations sur le magasin d’objets, sélectionnez *Créer un nouveau magasin d’objets*.
+. Sur la page Informations sur le magasin d’objets, sélectionnez *Créer un nouveau magasin d’objets*.
++
+image:screenshot_tiering_object_store_create_button.png["Une capture d’écran montrant le bouton Créer un nouveau magasin d’objets pour créer un nouveau magasin d’objets."]
+
++
+L'assistant de magasin d'objets démarre.  L'exemple ci-dessous montre comment créer un magasin d'objets dans Amazon S3.
+
+. *Définir le nom du stockage d’objets* : saisissez un nom pour ce stockage d’objets.  Il doit être unique par rapport à tout autre stockage d’objets que vous pouvez utiliser avec des agrégats sur ce cluster.
+. *Sélectionner le fournisseur* : sélectionnez le fournisseur, par exemple *Amazon Web Services*, puis sélectionnez *Continuer*.
+. Suivez les étapes des pages *Créer un stockage d'objets* :
++
+.. *S3 Bucket* : ajoutez un nouveau bucket S3 ou sélectionnez un bucket S3 existant qui commence par le préfixe _fabric-pool_.  Saisissez ensuite l’ID de compte AWS qui donne accès au bucket, sélectionnez la région du bucket et sélectionnez *Continuer*.
++
+Le préfixe _fabric-pool_ est requis car la stratégie IAM de l'agent de console permet à l'instance d'effectuer des actions S3 sur les buckets nommés avec ce préfixe exact.  Par exemple, vous pouvez nommer le bucket S3 _fabric-pool-AFF1_, où AFF1 est le nom du cluster.
+
+.. *Cycle de vie de la classe de stockage* : Cloud Tiering gère les transitions du cycle de vie de vos données hiérarchisées.  Les données commencent dans la classe _Standard_, mais vous pouvez créer une règle pour appliquer une classe de stockage différente aux données après un certain nombre de jours.
++
+Sélectionnez la classe de stockage S3 vers laquelle vous souhaitez transférer les données hiérarchisées et le nombre de jours avant que les données ne soient attribuées à cette classe, puis sélectionnez *Continuer*.  Par exemple, la capture d'écran ci-dessous montre que les données hiérarchisées sont attribuées à la classe _Standard-IA_ à partir de la classe _Standard_ après 45 jours dans le stockage d'objets.
+
++
+Si vous choisissez *Conserver les données dans cette classe de stockage*, les données restent dans la classe de stockage _Standard_ et aucune règle n'est appliquée. link:reference-aws-support.html["Voir les classes de stockage prises en charge"^] .
+
++
+image:screenshot_tiering_lifecycle_selection_aws.png["Une capture d'écran montrant comment sélectionner une autre classe de stockage attribuée à vos données après un certain nombre de jours."]
+
++
+Notez que la règle de cycle de vie est appliquée à tous les objets du bucket sélectionné.
+
+.. *Informations d'identification* : saisissez l'ID de clé d'accès et la clé secrète d'un utilisateur IAM disposant des autorisations S3 requises, puis sélectionnez *Continuer*.
++
+L'utilisateur IAM doit être dans le même compte AWS que le bucket que vous avez sélectionné ou créé sur la page *S3 Bucket*.  Consultez les autorisations requises dans la section relative à l’activation de la hiérarchisation.
+
+.. *Réseau de cluster* : sélectionnez l'espace IP ONTAP doit utiliser pour se connecter au stockage d'objets, puis sélectionnez *Continuer*.
++
+La sélection de l'espace IP correct garantit que Cloud Tiering peut établir une connexion d' ONTAP au stockage d'objets de votre fournisseur de cloud.
+
+
+
+
+
+Le magasin d'objets est créé.
+
+Vous pouvez désormais attacher le magasin d’objets à un agrégat de votre cluster.
+
+
+
+== Attacher un deuxième magasin d'objets à un agrégat pour la mise en miroir
+
+Vous pouvez attacher un deuxième magasin d'objets à un agrégat pour créer un miroir FabricPool afin de hiérarchiser de manière synchrone les données vers deux magasins d'objets.  Vous devez déjà avoir un magasin d’objets attaché à l’agrégat. https://docs.netapp.com/us-en/ontap/fabricpool/create-mirror-task.html["En savoir plus sur les miroirs FabricPool"^] .
+
+Lorsque vous utilisez une configuration MetroCluster , il est recommandé d’utiliser des magasins d’objets dans le cloud public qui se trouvent dans différentes zones de disponibilité. https://docs.netapp.com/us-en/ontap/fabricpool/setup-object-stores-mcc-task.html["En savoir plus sur les exigences de MetroCluster dans la documentation ONTAP"^] .  Au sein d'un MetroCluster, il n'est pas recommandé d'utiliser des agrégats non mis en miroir, car cela vous donnera un message d'erreur.
+
+Lorsque vous utilisez StorageGRID comme magasin d'objets dans une configuration MetroCluster , les deux systèmes ONTAP peuvent effectuer la hiérarchisation FabricPool sur un seul système StorageGRID .  Chaque système ONTAP doit hiérarchiser les données dans différents compartiments.
+
+.Étapes
+. Depuis la page *Clusters*, sélectionnez *Configuration avancée* pour le cluster sélectionné.
++
+image:screenshot_tiering_advanced_setup_button.png["Une capture d’écran montrant le bouton Configuration avancée pour un cluster."]
+
+. À partir de la page Configuration avancée, faites glisser le magasin d’objets que vous souhaitez utiliser vers l’emplacement du magasin d’objets miroir.
++
+image:screenshot_tiering_mirror_config.png["Une capture d'écran montrant comment faire glisser un deuxième magasin d'objets vers un agrégat pour créer un miroir à plusieurs niveaux."]
+
+. Dans la boîte de dialogue Attacher un magasin d'objets, sélectionnez *Attacher* et le deuxième magasin d'objets est attaché à l'agrégat.
++
+image:screenshot_tiering_mirror_config_complete.png["Une capture d’écran montrant un deuxième magasin d’objets attaché à un agrégat."]
+
+
+
+L'état du miroir apparaîtra comme « Synchronisation en cours » pendant que les 2 magasins d'objets sont en cours de synchronisation.  Le statut passera à « Synchronisé » une fois la synchronisation terminée.
+
+
+
+== Échanger le magasin d'objets principal et miroir
+
+Vous pouvez échanger le magasin d'objets principal et miroir contre un agrégat.  Le miroir du magasin d'objets devient le principal et le principal d'origine devient le miroir.
+
+.Étapes
+. Depuis la page *Clusters*, sélectionnez *Configuration avancée* pour le cluster sélectionné.
++
+image:screenshot_tiering_advanced_setup_button.png["Une capture d’écran montrant le bouton Configuration avancée pour un cluster."]
+
+. Depuis la page Configuration avancée, sélectionnez l’icône de menu de l’agrégat et sélectionnez *Destinations d’échange*.
++
+image:screenshot_tiering_mirror_swap.png["Une capture d’écran montrant l’option Destination d’échange pour un agrégat."]
+
+. Approuvez l’action dans la boîte de dialogue et les magasins d’objets principaux et miroirs sont échangés.
+
+
+
+
+== Supprimer un magasin d'objets miroir d'un agrégat
+
+Vous pouvez supprimer un miroir FabricPool si vous n’avez plus besoin de répliquer vers un magasin d’objets supplémentaire.
+
+.Étapes
+. Depuis la page *Clusters*, sélectionnez *Configuration avancée* pour le cluster sélectionné.
++
+image:screenshot_tiering_advanced_setup_button.png["Une capture d’écran montrant le bouton Configuration avancée pour un cluster."]
+
+. Depuis la page Configuration avancée, sélectionnez l’icône de menu de l’agrégat et sélectionnez *Désimuler le magasin d’objets*.
++
+image:screenshot_tiering_mirror_delete.png["Une capture d’écran montrant l’option Unmirror Object Store pour un agrégat."]
+
+
+
+Le magasin d’objets miroir est supprimé de l’agrégat et les données hiérarchisées ne sont plus répliquées.
+
+
+NOTE: Lorsque vous supprimez le magasin d'objets miroir d'une configuration MetroCluster , vous serez invité à indiquer si vous souhaitez également supprimer le magasin d'objets principal.  Vous pouvez choisir de conserver le magasin d'objets principal attaché à l'agrégat ou de le supprimer.
+
+
+
+== Migrez vos données hiérarchisées vers un autre fournisseur de cloud
+
+Cloud Tiering vous permet de migrer facilement vos données hiérarchisées vers un autre fournisseur de cloud.  Par exemple, si vous souhaitez passer d’Amazon S3 à Azure Blob, vous pouvez suivre les étapes répertoriées ci-dessus dans cet ordre :
+
+. Ajoutez un magasin d’objets Azure Blob.
+. Attachez ce nouveau magasin d’objets comme miroir de l’agrégat existant.
+. Échangez les magasins d’objets principaux et miroirs.
+. Annuler la mise en miroir du magasin d’objets Amazon S3.
+

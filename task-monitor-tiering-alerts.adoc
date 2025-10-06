@@ -1,0 +1,29 @@
+---
+sidebar: sidebar 
+permalink: task-monitor-tiering-alerts.html 
+keywords: tiering, status, monitor, alert, notification, cloud tiering, bluexp 
+summary: Vous pouvez afficher l’état des alertes de hiérarchisation dans le centre de notifications de la console NetApp . 
+---
+= Surveiller l'état des alertes de hiérarchisation à partir de NetApp Cloud Tiering
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Vous pouvez afficher l'état des alertes de hiérarchisation de NetApp Cloud Tiering dans le centre de notifications de la console NetApp .
+
+Le centre de notifications suit la progression des incidents de hiérarchisation afin que vous puissiez vérifier s'ils ont été résolus ou non.  Vous pouvez afficher les notifications en sélectionnant le (image:icon_bell.png["cloche de notification"] ) dans la barre de menu de la console.
+
+À l'heure actuelle, il existe un événement de hiérarchisation qui apparaîtra sous forme de notification :
+
+Transférez des données supplémentaires du cluster <nom> vers le stockage d'objets pour économiser de l'espace de stockage
+
+Cette notification est une « recommandation » visant à améliorer l'efficacité du système et à réduire les coûts de stockage.  Cela indique qu'un cluster hiérarchise moins de 20 % de ses données froides, y compris les clusters qui ne hiérarchisent aucune donnée.  Il fournit un lien vers le https://bluexp.netapp.com/cloud-tiering-service-tco["Calculateur du coût total de possession et des économies de Cloud Tiering"^] pour vous aider à calculer vos économies.
+
+La console NetApp n'envoie pas d'e-mail pour cette notification.
+
+https://docs.netapp.com/us-en/bluexp-setup-admin/task-monitor-cm-operations.html["En savoir plus sur le centre de notifications"^] .

@@ -1,0 +1,81 @@
+---
+sidebar: sidebar 
+permalink: reference-aws-support.html 
+keywords: aws, amazon, s3, support, regions, storage classes, cloud tiering, tiering, bluexp, netapp 
+summary: NetApp Cloud Tiering prend en charge plusieurs classes de stockage S3 et la plupart des régions. 
+---
+= Classes et régions de stockage S3 prises en charge pour NetApp Cloud Tiering
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+NetApp Cloud Tiering prend en charge plusieurs classes de stockage S3 et la plupart des régions.
+
+
+
+== Classes de stockage S3 prises en charge
+
+Lorsque vous configurez la hiérarchisation des données sur AWS à partir de vos systèmes ONTAP sur site, Cloud Tiering utilise automatiquement la classe de stockage _Standard_ pour vos données inactives.  Cloud Tiering peut appliquer une règle de cycle de vie afin que les données passent de la classe de stockage _Standard_ à une autre classe de stockage après un certain nombre de jours.  Vous pouvez choisir parmi les classes de stockage suivantes :
+
+* Accès standard peu fréquent (S3 Standard-IA)
+* Une zone - Accès peu fréquent (S3 Une zone - IA)
+* Hiérarchisation intelligente (S3 Intelligent-Tiering)
+* Récupération instantanée du glacier
+
+
+Si vous ne choisissez pas une autre classe de stockage, les données restent dans la classe de stockage _Standard_ et aucune règle n'est appliquée.
+
+Lorsque vous configurez une règle de cycle de vie Cloud Tiering, vous ne devez configurer aucune règle de cycle de vie lors de la configuration du bucket dans votre compte AWS.
+
+https://aws.amazon.com/s3/storage-classes/["En savoir plus sur les classes de stockage S3"^] .
+
+
+
+== Régions AWS prises en charge
+
+Cloud Tiering prend en charge les régions AWS suivantes.
+
+
+
+=== Asie-Pacifique
+
+* Bombay
+* Séoul
+* Singapour
+* Sydney
+* Tokyo
+
+
+
+
+=== Europe
+
+* Francfort
+* Irlande
+* Londres
+* Paris
+* Stockholm
+
+
+
+
+=== Amérique du Nord
+
+* Canada Central
+* Est des États-Unis (Virginie du Nord)
+* Est des États-Unis (Ohio)
+* Ouest des États-Unis (Californie du Nord)
+* Ouest des États-Unis (Oregon)
+
+
+
+
+=== Amérique du Sud
+
+* São Paulo
+

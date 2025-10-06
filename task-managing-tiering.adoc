@@ -1,0 +1,288 @@
+---
+sidebar: sidebar 
+permalink: task-managing-tiering.html 
+keywords: discover, volumes, report, hot, cold, inactive, active, capacity, used capacity, savings, health, failed, console 
+summary: 'Maintenant que vous avez configuré la hiérarchisation des données à partir de vos clusters ONTAP locaux, vous pouvez hiérarchiser les données à partir de volumes supplémentaires, modifier la politique de hiérarchisation d"un volume, découvrir des clusters supplémentaires, et bien plus encore.' 
+---
+= Gérez la hiérarchisation des données pour vos clusters dans NetApp Cloud Tiering
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Maintenant que vous avez configuré la hiérarchisation des données à partir de vos clusters ONTAP sur site, vous pouvez hiérarchiser les données à partir de volumes supplémentaires, modifier la stratégie de hiérarchisation d'un volume, découvrir des clusters supplémentaires et bien plus encore à l'aide de NetApp Cloud Tiering.
+
+
+
+== Consulter les informations de hiérarchisation d'un cluster
+
+Vérifiez les données dans la couche cloud, sur les disques ou la quantité de données chaudes et froides sur les disques du cluster.  Ou, vous souhaiterez peut-être voir la quantité de données chaudes et froides sur les disques du cluster.  Cloud Tiering fournit ces informations pour chaque cluster.
+
+.Étapes
+. Dans le menu de navigation de gauche, sélectionnez *Mobilité > Cloud Tiering*.
+. Depuis la page *Clusters*, sélectionnez l'icône de menuimage:icon-action.png["Icône Actions"] pour un cluster et sélectionnez *Informations sur le cluster*.
++
+image:screenshot_tiering_cluster_info_button.png["Capture d'écran de la sélection du bouton Informations sur le cluster sur la page Clusters."]
+
+. Consultez les détails du cluster.
++
+Voici un exemple :
+
++
+image:screenshot_tiering_cluster_info.png["Une capture d'écran qui montre la capacité totale de données utilisée du cluster, la capacité utilisée du cluster et les informations du cluster."]
+
+
+
+Notez que l'affichage est différent pour les systèmes Cloud Volumes ONTAP .  Bien que les volumes Cloud Volumes ONTAP puissent avoir des données hiérarchisées vers le cloud, ils n'utilisent pas le service Cloud Tiering. https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/task-tiering.html["Découvrez comment hiérarchiser les données inactives des systèmes Cloud Volumes ONTAP vers un stockage d'objets à faible coût"^] .
+
+Vous pouvez également https://docs.netapp.com/us-en/active-iq/task-informed-decisions-based-on-cloud-recommendations.html#tiering["afficher les informations de hiérarchisation d'un cluster à partir d' Active IQ Digital Advisor (également connu sous le nom de Digital Advisor)"^] si vous connaissez ce produit NetApp .  Sélectionnez *Recommandations Cloud* dans le volet de navigation de gauche.
+
+image:screenshot_tiering_aiq_fabricpool_info.png["Une capture d'écran qui montre les informations FabricPool pour un cluster à l'aide de FabricPool Advisor de Digital Advisor."]
+
+
+
+== Données de niveau provenant de volumes supplémentaires
+
+Configurez la hiérarchisation des données pour des volumes supplémentaires à tout moment, par exemple après la création d'un nouveau volume.
+
+
+TIP: Vous n’avez pas besoin de configurer le stockage d’objets, car il était déjà configuré lors de la configuration initiale de la hiérarchisation pour le cluster.  ONTAP classe les données inactives de tous les volumes supplémentaires vers le même magasin d'objets.
+
+.Étapes
+. Dans le menu de navigation de gauche, sélectionnez *Mobilité > Cloud Tiering*.
+. Depuis la page *Clusters*, sélectionnez *Volumes hiérarchisés* pour le cluster.
++
+image:screenshot_tiering_tier_volumes_button.png["Une capture d’écran montrant comment sélectionner le bouton Volumes de niveaux pour un cluster."]
+
+. Sur la page _Volumes hiérarchisés_, sélectionnez les volumes pour lesquels vous souhaitez configurer la hiérarchisation et lancez la page Politique de hiérarchisation :
++
+** Pour sélectionner tous les volumes, cochez la case dans la ligne de titre (image:button_backup_all_volumes.png[""] ) et sélectionnez *Configurer les volumes*.
+** Pour sélectionner plusieurs volumes, cochez la case correspondant à chaque volume (image:button_backup_1_volume.png[""] ) et sélectionnez *Configurer les volumes*.
+** Pour sélectionner un seul volume, sélectionnez la ligne (ouimage:screenshot_edit_icon.gif["modifier l'icône du crayon"] icône) pour le volume.
++
+image:screenshot_tiering_tier_volumes.png["Une capture d'écran qui montre comment sélectionner un seul volume, plusieurs volumes ou tous les volumes, et le bouton Modifier les volumes sélectionnés."]
+
+
+
+. Dans la boîte de dialogue _Politique de hiérarchisation_, sélectionnez une politique de hiérarchisation, ajustez éventuellement les jours de refroidissement pour les volumes sélectionnés et sélectionnez *Appliquer*.
+. Dans la boîte de dialogue _Politique de hiérarchisation_, sélectionnez une politique de hiérarchisation, ajustez éventuellement les jours de refroidissement pour les volumes sélectionnés et sélectionnez *Appliquer*.
++
+link:concept-cloud-tiering.html#volume-tiering-policies["En savoir plus sur les politiques de hiérarchisation des volumes et les jours de refroidissement"] .
+
++
+image:screenshot_tiering_policy_settings.png["Une capture d’écran qui montre les paramètres de stratégie de hiérarchisation configurables."]
+
+
+
+.Résultat
+ONTAP commence à hiérarchiser les données des volumes sélectionnés vers le cloud.
+
+
+
+== Modifier la politique de hiérarchisation d'un volume
+
+La modification de la politique de hiérarchisation d'un volume modifie la manière dont ONTAP hiérarchise les données froides vers le stockage d'objets.  Le changement commence à partir du moment où vous modifiez la politique.  Il modifie uniquement le comportement de hiérarchisation ultérieur du volume ; il ne déplace pas rétroactivement les données vers le niveau cloud.
+
+.Étapes
+. Dans le menu de navigation de gauche, sélectionnez *Mobilité > CloudTiering*.
+. Depuis la page *Clusters*, sélectionnez *Volumes hiérarchisés* pour le cluster.
+. Depuis la page *Clusters*, sélectionnez *Volumes hiérarchisés* pour le cluster.
+. Cliquez sur la ligne d'un volume, sélectionnez une politique de hiérarchisation, ajustez éventuellement les jours de refroidissement et sélectionnez *Appliquer*.
+. Cliquez sur la ligne d'un volume, sélectionnez une politique de hiérarchisation, ajustez éventuellement les jours de refroidissement et sélectionnez *Appliquer*.
++
+link:concept-cloud-tiering.html#volume-tiering-policies["En savoir plus sur les politiques de hiérarchisation des volumes et les jours de refroidissement"] .
+
++
+image:screenshot_tiering_policy_settings.png["Une capture d’écran qui montre les paramètres de stratégie de hiérarchisation configurables."]
+
+
+
+
+NOTE: Si vous voyez des options pour « Récupérer les données hiérarchisées », consultez<<Migrer les données du niveau cloud vers le niveau de performance,Migrer les données du niveau cloud vers le niveau de performance>> pour plus de détails.
+
+.Résultat
+ONTAP modifie la politique de hiérarchisation et commence à hiérarchiser les données en fonction de la nouvelle politique.
+
+
+
+== Modifier la bande passante réseau disponible pour télécharger des données inactives vers le stockage d'objets
+
+Lorsque vous activez Cloud Tiering pour un cluster, par défaut, ONTAP peut utiliser une quantité illimitée de bande passante pour transférer les données inactives des volumes du système vers le stockage d'objets.  Si la hiérarchisation du trafic affecte les charges de travail des utilisateurs, limitez la bande passante réseau utilisée pendant le transfert.  Vous pouvez choisir une valeur comprise entre 1 et 10 000 Mbps comme débit de transfert maximal.
+
+. Dans le menu de navigation de gauche, sélectionnez *Mobilité > Hiérarchisation*.
+. Depuis la page *Clusters*, sélectionnez l'icône de menuimage:icon-action.png["Icône Actions"] pour un cluster et sélectionnez *Taux de transfert maximal*.
+. Depuis la page *Clusters*, sélectionnez l'icône de menuimage:icon-action.png["Icône Actions"] pour un cluster et sélectionnez *Taux de transfert maximal*.
++
+image:screenshot_tiering_transfer_rate_button.png["Capture d'écran de la sélection du bouton Taux de transfert maximal sur la page Clusters."]
+
+. Dans la page _Taux de transfert maximal_, sélectionnez le bouton radio *Limité* et saisissez la bande passante maximale pouvant être utilisée, ou sélectionnez *Illimité* pour indiquer qu'il n'y a pas de limite.  Sélectionnez ensuite *Appliquer*.
+. Dans la page _Taux de transfert maximal_, sélectionnez le bouton radio *Limité* et saisissez la bande passante maximale pouvant être utilisée, ou sélectionnez *Illimité* pour indiquer qu'il n'y a pas de limite.  Sélectionnez ensuite *Appliquer*.
++
+image:screenshot_tiering_transfer_rate.png["Une capture d’écran de la boîte de dialogue Taux de transfert maximal pour un cluster."]
+
+
+
+Ce paramètre n’affecte pas la bande passante allouée aux autres clusters qui hiérarchisent les données.
+
+
+
+== Téléchargez un rapport de hiérarchisation pour vos volumes
+
+Téléchargez un rapport de la page Volumes hiérarchisés afin de pouvoir consulter l’état de hiérarchisation de tous les volumes sur les clusters que vous gérez.  Sélectionnez simplement leimage:button_download.png["Télécharger"] bouton.  Cloud Tiering génère un fichier .CSV que vous pouvez consulter et envoyer à d'autres groupes selon vos besoins.  Le fichier .CSV comprend jusqu'à 10 000 lignes de données.
+
+image:screenshot_tiering_report_download.png["Une capture d'écran montrant comment générer un fichier CSV répertoriant l'état de hiérarchisation de tous vos volumes."]
+
+
+
+== Migrer les données du niveau cloud vers le niveau de performance
+
+Les données hiérarchisées accessibles depuis le cloud peuvent être « réchauffées » et déplacées vers le niveau de performance.  Toutefois, si vous souhaitez promouvoir de manière proactive les données vers le niveau de performance à partir du niveau cloud, vous pouvez le faire dans la boîte de dialogue _Politique de hiérarchisation_.  Cette fonctionnalité est disponible lors de l'utilisation ONTAP 9.8 et versions ultérieures.
+
+Vous pouvez le faire si vous souhaitez arrêter d’utiliser la hiérarchisation sur un volume ou si vous décidez de conserver toutes les données utilisateur sur le niveau de performance, mais de conserver les copies Snapshot sur le niveau cloud.
+
+Il y a deux options :
+
+[cols="22,45,35"]
+|===
+| Option | Description | Impact sur la politique de hiérarchisation 
+
+
+| Récupérer toutes les données | Récupère toutes les données de volume et les copies Snapshot hiérarchisées dans le cloud et les promeut au niveau de performance. | La politique de hiérarchisation est modifiée en « Aucune politique ». 
+
+
+| Rétablir le système de fichiers actif | Récupère uniquement les données du système de fichiers actif hiérarchisées dans le cloud et les promeut au niveau de performance (les copies instantanées restent dans le cloud). | La politique de hiérarchisation est modifiée en « Instantanés froids ». 
+|===
+
+NOTE: Votre fournisseur de cloud peut vous facturer en fonction de la quantité de données transférées hors du cloud.
+
+.Étapes
+Assurez-vous que le niveau de performance dispose de suffisamment d’espace pour les données déplacées depuis le cloud.
+
+. Dans le menu de navigation de gauche, sélectionnez *Mobilité > Cloud Tiering*.
+. Depuis la page *Clusters*, sélectionnez *Volumes hiérarchisés* pour le cluster.
+. Depuis la page *Clusters*, sélectionnez *Volumes hiérarchisés* pour le cluster.
+. Cliquez sur leimage:screenshot_edit_icon.gif["icône d'édition qui apparaît à la fin de chaque ligne du tableau pour la hiérarchisation des volumes"] icône du volume, choisissez l'option de récupération que vous souhaitez utiliser et sélectionnez *Appliquer*.
+. Cliquez sur leimage:screenshot_edit_icon.gif["icône d'édition qui apparaît à la fin de chaque ligne du tableau pour la hiérarchisation des volumes"] icône du volume, choisissez l'option de récupération que vous souhaitez utiliser et sélectionnez *Appliquer*.
++
+image:screenshot_tiering_policy_settings_with_retrieve.png["Une capture d’écran qui montre les paramètres de stratégie de hiérarchisation configurables."]
+
+
+
+.Résultat
+La politique de hiérarchisation est modifiée et les données hiérarchisées commencent à être migrées vers le niveau de performance.  Selon la quantité de données dans le cloud, le processus de transfert peut prendre un certain temps.
+
+
+
+== Gérer les paramètres de hiérarchisation sur les agrégats
+
+Chaque agrégat de vos systèmes ONTAP sur site dispose de deux paramètres que vous pouvez ajuster : le seuil de remplissage de la hiérarchisation et l'activation ou non des rapports de données inactives.  Chaque agrégat de vos systèmes ONTAP sur site dispose de deux paramètres que vous pouvez ajuster : le seuil de remplissage de la hiérarchisation et l'activation ou non des rapports de données inactives.
+
+Seuil de plénitude hiérarchisé:: La définition du seuil sur un nombre inférieur réduit la quantité de données devant être stockées sur le niveau de performance avant que la hiérarchisation n'ait lieu.  Cela peut être utile pour les grands agrégats qui contiennent peu de données actives.
++
+--
+La définition du seuil sur un nombre plus élevé augmente la quantité de données devant être stockées sur le niveau de performance avant que la hiérarchisation n'ait lieu.  Cela peut être utile pour les solutions conçues pour effectuer une hiérarchisation uniquement lorsque les agrégats sont proches de leur capacité maximale.
+
+--
+Rapports de données inactives:: Le rapport sur les données inactives (IDR) utilise une période de réflexion de 31 jours pour déterminer quelles données sont considérées comme inactives.  La quantité de données froides hiérarchisées dépend des politiques de hiérarchisation définies sur les volumes.  Ce montant peut être différent de la quantité de données froides détectées par l'IDR à l'aide d'une période de refroidissement de 31 jours.
++
+--
+
+TIP: Il est préférable de garder l'IDR activé, car il permet d'identifier vos données inactives et vos opportunités d'économies.  L'IDR doit rester activé si la hiérarchisation des données est activée sur un agrégat.
+
+--
+
+
+.Étapes
+. Depuis la page *Clusters*, sélectionnez *Configuration avancée* pour le cluster sélectionné.
+. Depuis la page *Clusters*, sélectionnez *Configuration avancée* pour le cluster sélectionné.
++
+image:screenshot_tiering_advanced_setup_button.png["Une capture d’écran montrant le bouton Configuration avancée pour un cluster."]
+
+. Depuis la page Configuration avancée, sélectionnez l’icône de menu de l’agrégat et sélectionnez *Modifier l’agrégat*.
+. Depuis la page Configuration avancée, sélectionnez l’icône de menu de l’agrégat et sélectionnez *Modifier l’agrégat*.
++
+image:screenshot_tiering_modify_aggr.png["Une capture d’écran montrant l’option Modifier l’agrégat pour un agrégat."]
+
+. Dans la boîte de dialogue qui s'affiche, modifiez le seuil de remplissage et choisissez d'activer ou de désactiver les rapports de données inactives.
++
+image:screenshot_tiering_modify_aggregate.png["Une capture d'écran qui montre un curseur pour modifier le seuil de plénitude de la hiérarchisation et un bouton pour activer ou désactiver les rapports de données inactives."]
+
+. Cliquez sur *Appliquer*.
+
+
+
+
+== Réparer la santé opérationnelle
+
+En cas de panne, Cloud Tiering affiche un état de fonctionnement « Échec » sur le tableau de bord du cluster.  L'état de santé reflète l'état du système ONTAP et de la console NetApp .
+
+.Étapes
+. Identifiez tous les clusters dont l’état de fonctionnement est « Échec ».
+. Passez la souris sur l'icône informative « i » pour voir la raison de l'échec.
+. Corriger le problème :
++
+.. Vérifiez que le cluster ONTAP est opérationnel et qu’il dispose d’une connexion entrante et sortante vers votre fournisseur de stockage d’objets.
+.. Vérifiez que la console dispose de connexions sortantes vers le service Cloud Tiering, vers le magasin d’objets et vers les clusters ONTAP qu’elle découvre.
+
+
+
+
+
+
+== Découvrez des clusters supplémentaires grâce à Cloud Tiering
+
+Vous pouvez ajouter vos clusters ONTAP locaux non découverts à la console à partir de la page _Cluster_ de hiérarchisation afin de pouvoir activer la hiérarchisation pour le cluster.
+
+Notez que des boutons apparaissent également sur la page du tableau de bord de hiérarchisation _On-Prem_ pour vous permettre de découvrir des clusters supplémentaires.
+
+.Étapes
+. Depuis Cloud Tiering, sélectionnez l’onglet *Clusters*.
+. Pour voir les clusters non découverts, sélectionnez *Afficher les clusters non découverts*.
+. Pour voir les clusters non découverts, sélectionnez *Afficher les clusters non découverts*.
++
+image:screenshot_tiering_show_undiscovered_cluster.png["Une capture d'écran montrant le bouton Afficher les clusters non découverts sur le tableau de bord de hiérarchisation."]
+
++
+Si vos informations d’identification NSS sont enregistrées dans la console, les clusters de votre compte s’affichent dans la liste.
+
++
+Si vos informations d’identification NSS ne sont pas enregistrées, vous êtes d’abord invité à ajouter vos informations d’identification avant de pouvoir voir les clusters non découverts.
+
++
+image:screenshot_tiering_discover_cluster.png["Une capture d’écran montrant comment découvrir un cluster existant à ajouter à la console et au tableau de bord de hiérarchisation."]
+
+. Cliquez sur *Découvrir le cluster* pour le cluster que vous souhaitez gérer via la console et implémenter la hiérarchisation des données.
+. Dans la page _Détails du cluster_, saisissez le mot de passe du compte utilisateur administrateur et sélectionnez *Découvrir*.
+. Dans la page _Détails du cluster_, saisissez le mot de passe du compte utilisateur administrateur et sélectionnez *Découvrir*.
++
+Notez que l’adresse IP de gestion du cluster est renseignée en fonction des informations de votre compte NSS.
+
+. Dans la page _Détails et informations d'identification_, le nom du cluster est ajouté comme nom du système, sélectionnez donc *Aller*.
+
+
+.Résultat
+La console découvre le cluster et l’ajoute à la page Systèmes en utilisant le nom du cluster comme nom du système.
+
+Vous pouvez activer le service de hiérarchisation ou d’autres services pour ce cluster dans le panneau de droite.
+
+
+
+== Rechercher un cluster parmi tous les agents de la console
+
+Si vous utilisez plusieurs agents pour gérer tout le stockage de votre environnement, certains clusters sur lesquels vous souhaitez implémenter la hiérarchisation peuvent se trouver dans un autre agent.  Si vous n'êtes pas sûr de l'agent qui gère un certain cluster, vous pouvez effectuer une recherche parmi tous les agents à l'aide de Cloud Tiering.
+
+.Étapes
+. Dans la barre de menu Cloud Tiering, sélectionnez le menu d'action et sélectionnez *Rechercher un cluster dans tous les agents*.
++
+image:screenshot_tiering_search for_cluster.png["Une capture d’écran montrant comment rechercher un cluster qui peut se trouver dans l’un de vos agents."]
+
+. Dans la boîte de dialogue de recherche affichée, saisissez le nom du cluster et sélectionnez *Rechercher*.
++
+Cloud Tiering affiche le nom de l'agent s'il parvient à trouver le cluster.
+
+. https://docs.netapp.com/us-en/bluexp-setup-admin/task-manage-multiple-connectors.html#switch-between-connectors["Basculez vers l’agent et configurez la hiérarchisation pour le cluster"^] .
+

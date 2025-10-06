@@ -1,0 +1,15 @@
+= L'onglet Licence a été supprimé
+:allow-uri-read: 
+
+
+
+
+=== L'onglet Licence a été supprimé
+
+L'onglet Licences a été supprimé de l'interface Cloud Tiering.  Toutes les licences pour les abonnements Pay-as-you-go (PAYGO) sont désormais accessibles depuis le tableau de bord Cloud Tiering On-Premises.  Il existe également un lien depuis cette page vers le BlueXP digital wallet afin que vous puissiez visualiser et gérer toutes les licences BYOL (Cloud Tiering).
+
+
+
+=== Les onglets de hiérarchisation ont été renommés et mis à jour
+
+L'onglet « Tableau de bord des clusters » a été renommé « Clusters » et l'onglet « Aperçu sur site » a été renommé « Tableau de bord sur site ».  Ces pages ont ajouté quelques informations qui vous aideront à évaluer si vous pouvez optimiser votre espace de stockage avec une configuration de hiérarchisation supplémentaire.

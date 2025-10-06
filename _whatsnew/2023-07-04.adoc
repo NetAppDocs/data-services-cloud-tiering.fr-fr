@@ -1,0 +1,17 @@
+= Ajuster la bande passante pour transférer les données inactives
+:allow-uri-read: 
+
+
+
+
+=== Ajuster la bande passante pour transférer les données inactives
+
+Lorsque vous activez Cloud Tiering, ONTAP peut utiliser une quantité illimitée de bande passante réseau pour transférer les données inactives des volumes du cluster vers le stockage d'objets.  Si vous remarquez que la hiérarchisation du trafic affecte les charges de travail normales des utilisateurs, vous pouvez limiter la quantité de bande passante pouvant être utilisée pendant le transfert. https://docs.netapp.com/us-en/bluexp-tiering/task-managing-tiering.html#changing-the-network-bandwidth-available-to-upload-inactive-data-to-object-storage["Apprendre encore plus"] .
+
+
+
+=== Événement de hiérarchisation affiché dans le centre de notifications
+
+L'événement de hiérarchisation « Hiérarchiser les données supplémentaires du cluster <nom> vers le stockage d'objets pour augmenter l'efficacité de votre stockage » apparaît désormais sous la forme d'une notification lorsqu'un cluster hiérarchise moins de 20 % de ses données froides, y compris les clusters qui ne hiérarchisent aucune donnée.
+
+Cette notification est une « recommandation » pour vous aider à rendre vos systèmes plus efficaces et à économiser sur les coûts de stockage.  Il fournit un lien vers le https://bluexp.netapp.com/cloud-tiering-service-tco["Calculateur du coût total de possession et des économies de Cloud Tiering"^] pour vous aider à calculer vos économies.

@@ -1,0 +1,15 @@
+= Utiliser un préfixe personnalisé pour le nom du bucket
+:allow-uri-read: 
+
+
+
+
+=== Utiliser un préfixe personnalisé pour le nom du bucket
+
+Auparavant, vous deviez utiliser le préfixe « fabric-pool » par défaut lors de la définition du nom du bucket, par exemple _fabric-pool-bucket1_. Vous pouvez désormais utiliser un préfixe personnalisé lors de la dénomination de votre bucket. Cette fonctionnalité est disponible uniquement lors de la hiérarchisation des données vers Amazon S3. https://docs.netapp.com/us-en/bluexp-tiering/task-tiering-onprem-aws.html#prepare-your-aws-environment["Apprendre encore plus"] .
+
+
+
+=== Rechercher un cluster sur tous les connecteurs BlueXP
+
+Si vous utilisez plusieurs connecteurs pour gérer tous les systèmes de stockage de votre environnement, certains clusters sur lesquels vous souhaitez implémenter la hiérarchisation peuvent se trouver dans des connecteurs différents. Si vous n'êtes pas sûr du connecteur qui gère un certain cluster, vous pouvez effectuer une recherche parmi tous les connecteurs à l'aide de Cloud Tiering. https://docs.netapp.com/us-en/bluexp-tiering/task-managing-tiering.html#search-for-a-cluster-across-all-bluexp-connectors["Apprendre encore plus"] .

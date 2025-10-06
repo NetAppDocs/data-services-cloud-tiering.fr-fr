@@ -1,0 +1,78 @@
+---
+sidebar: sidebar 
+permalink: reference-google-support.html 
+keywords: google, gcp, regions, google regions, gcp regions, storage class, standard, nearline, coldline, archive, cloud tiering, cloud tier, bluexp 
+summary: NetApp Cloud Tiering prend en charge plusieurs classes de stockage Google Cloud et la plupart des régions. 
+---
+= Classes et régions de stockage Google Cloud prises en charge pour NetApp Cloud Tiering
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+NetApp Cloud Tiering prend en charge plusieurs classes de stockage Google Cloud et la plupart des régions.
+
+
+
+== Classes de stockage GCP prises en charge
+
+Lorsque vous configurez la hiérarchisation des données sur GCP à partir de vos systèmes ONTAP locaux, Cloud Tiering utilise automatiquement la classe de stockage _Standard_ pour vos données inactives.  Cloud Tiering peut appliquer une règle de cycle de vie afin que les données passent de la classe de stockage _Standard_ à d'autres classes de stockage après un certain nombre de jours.  Vous pouvez choisir parmi les classes de stockage suivantes :
+
+* Nearline
+* Coldline
+* Archive
+
+
+Si vous ne choisissez pas une autre classe de stockage, les données restent dans la classe de stockage _Standard_ et aucune règle n'est appliquée.
+
+Lorsque vous configurez une règle de cycle de vie Cloud Tiering, vous ne devez configurer aucune règle de cycle de vie lors de la configuration du bucket dans votre compte Google.
+
+https://cloud.google.com/storage/docs/storage-classes["En savoir plus sur les cours Google Cloud Storage"^] .
+
+
+
+== Régions Google Cloud prises en charge
+
+Cloud Tiering prend en charge les régions suivantes.
+
+
+
+=== Amériques
+
+* Iowa
+* Los Angeles
+* Montréal
+* Virginie du Nord
+* Oregon
+* São Paulo
+* Caroline du Sud
+
+
+
+
+=== Asie-Pacifique
+
+* Hong Kong
+* Bombay
+* Osaka
+* Singapour
+* Sydney
+* Taïwan
+* Tokyo
+
+
+
+
+=== Europe
+
+* Belgique
+* Finlande
+* Francfort
+* Londres
+* Pays-Bas
+* Zurich
+

@@ -1,0 +1,244 @@
+---
+sidebar: sidebar 
+permalink: concept-cloud-tiering.html 
+keywords: cloud tiering, overview, conceptual, value, features, cost, charging, tiering policies, cooling period, fabricpool, netapp console, console, bluexp 
+summary: 'Le service Cloud Tiering de NetApp étend votre centre de données au cloud en hiérarchisant automatiquement les données inactives des clusters ONTAP sur site vers le stockage d"objets.  Cela libère de l’espace précieux sur le cluster pour davantage de charges de travail, sans apporter de modifications à la couche applicative.  Cloud Tiering peut réduire les coûts de votre centre de données et vous permet de passer d"un modèle CAPEX à un modèle OPEX.' 
+---
+= En savoir plus sur NetApp Cloud Tiering
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+NetApp Cloud Tiering étend votre centre de données au cloud en hiérarchisant automatiquement les données inactives des clusters ONTAP sur site vers le stockage d'objets.  Cela libère de l’espace précieux sur le cluster pour davantage de charges de travail, sans apporter de modifications à la couche applicative.  Cloud Tiering peut réduire les coûts de votre centre de données et vous permet de passer d'un modèle CAPEX à un modèle OPEX.
+
+Cloud Tiering exploite les capacités de _FabricPool_.  FabricPool est une technologie NetApp Data Fabric qui permet la hiérarchisation automatisée des données vers un stockage d'objets à faible coût.  Les données actives (chaudes) restent au niveau local (agrégats ONTAP sur site), tandis que les données inactives (froides) sont déplacées vers le niveau cloud, tout en préservant l'efficacité des données ONTAP .
+
+Initialement pris en charge sur les systèmes AFF, FAS et ONTAP Select avec des agrégats entièrement SSD, à partir d' ONTAP 9.8, vous pouvez hiérarchiser les données à partir d'agrégats constitués de disques durs en plus des SSD hautes performances. Voir https://docs.netapp.com/us-en/ontap/fabricpool/requirements-concept.html["les considérations et exigences relatives à l'utilisation de FabricPool"^] pour plus de détails.
+
+Vous pouvez configurer la hiérarchisation pour les clusters à nœud unique, les clusters configurés en haute disponibilité, les clusters dans les configurations de miroir de hiérarchisation et les configurations MetroCluster à l'aide de FabricPool Mirror.  Les licences Cloud Tiering sont partagées entre tous vos clusters.
+
+https://bluexp.netapp.com/cloud-tiering-service-tco["Utilisez le calculateur TCO Cloud Tiering pour voir combien d'argent vous pouvez économiser"^] .
+
+
+
+== Console NetApp
+
+NetApp Cloud Tiering est accessible via la console NetApp .
+
+La console NetApp fournit une gestion centralisée des services de stockage et de données NetApp dans les environnements locaux et cloud à l'échelle de l'entreprise. La console est requise pour accéder aux services de données NetApp et les utiliser. En tant qu'interface de gestion, il vous permet de gérer de nombreuses ressources de stockage à partir d'une seule interface. Les administrateurs de console peuvent contrôler l’accès au stockage et aux services pour tous les systèmes de l’entreprise.
+
+Vous n'avez pas besoin de licence ni d'abonnement pour commencer à utiliser la console NetApp et vous n'encourez des frais que lorsque vous devez déployer des agents de console dans votre cloud pour garantir la connectivité à vos systèmes de stockage ou à vos services de données NetApp . Cependant, certains services de données NetApp accessibles depuis la console sont sous licence ou basés sur un abonnement.
+
+En savoir plus sur le https://docs.netapp.com/us-en/bluexp-setup-admin/concept-overview.html["Console NetApp"] .
+
+
+
+== Caractéristiques
+
+Cloud Tiering offre une automatisation, une surveillance, des rapports et une interface de gestion commune :
+
+* L'automatisation facilite la configuration et la gestion de la hiérarchisation des données depuis les clusters ONTAP sur site vers le cloud.
+* Vous pouvez choisir la classe de stockage/le niveau d'accès par défaut du fournisseur de cloud, ou utiliser la gestion du cycle de vie pour attribuer un niveau plus rentable aux données hiérarchisées plus anciennes.
+* Vous pouvez créer des connexions à des magasins d’objets supplémentaires qui peuvent être utilisés pour d’autres agrégats de votre cluster.
+* À l’aide de l’interface utilisateur, vous pouvez faire glisser des magasins d’objets vers un agrégat pour la hiérarchisation et la mise en miroir de FabricPool .
+* Un seul panneau de verre élimine la nécessité de gérer indépendamment FabricPool sur plusieurs clusters.
+* Les rapports affichent la quantité de données actives et inactives sur chaque cluster.
+* Un état de santé hiérarchisé vous aide à identifier et à corriger les problèmes au fur et à mesure qu’ils surviennent.
+* Si vous disposez de systèmes Cloud Volumes ONTAP , vous les trouverez sur la page Clusters afin d'obtenir une vue complète de la hiérarchisation des données dans votre infrastructure de cloud hybride.
+
+
+Pour plus de détails sur la valeur offerte par Cloud Tiering, https://bluexp.netapp.com/cloud-tiering["Consultez la page Cloud Tiering sur le site Web de la console NetApp"^] .
+
+
+TIP: Les systèmes Cloud Volumes ONTAP sont en lecture seule à partir de Cloud Tiering. https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/task-tiering.html["Vous configurez la hiérarchisation pour les systèmes Cloud Volumes ONTAP dans la console NetApp ."^] .
+
+
+
+== Fournisseurs de stockage d'objets pris en charge
+
+Vous pouvez hiérarchiser les données inactives d'un système ONTAP sur site vers les fournisseurs de stockage d'objets suivants :
+
+* Amazon S3
+* Blob Microsoft Azure
+* Stockage Google Cloud
+* NetApp StorageGRID
+* Stockage d'objets compatible S3 (par exemple, MinIO)
+
+
+Les licences Cloud Tiering peuvent également être partagées avec vos clusters qui hiérarchisent les données vers IBM Cloud Object Storage.  La configuration de FabricPool doit être configurée à l'aide de System Manager ou de l'interface de ligne de commande ONTAP , maislink:task-licensing-cloud-tiering.html#apply-bluexp-tiering-licenses-to-clusters-in-special-configurations["l'octroi de licences pour ce type de configuration est réalisé à l'aide du Cloud Tiering."]
+
+
+NOTE: Vous pouvez hiérarchiser les données des volumes NAS vers le cloud public ou vers des clouds privés, comme StorageGRID.  Lorsque vous hiérarchisez les données accessibles via les protocoles SAN, NetApp recommande d'utiliser des clouds privés en raison de considérations de connectivité.
+
+
+
+=== Niveaux de stockage d'objets
+
+Les clusters ONTAP peuvent hiérarchiser les données inactives vers un seul magasin d'objets ou vers plusieurs magasins d'objets.  Lorsque vous configurez la hiérarchisation des données, vous avez le choix d'ajouter un nouveau bucket/conteneur ou de sélectionner un bucket/conteneur existant, ainsi qu'une classe de stockage ou un niveau d'accès.
+
+* link:reference-aws-support.html["En savoir plus sur les classes de stockage AWS S3 prises en charge"]
+* link:reference-azure-support.html["En savoir plus sur les niveaux d'accès Azure Blob pris en charge"]
+* link:reference-google-support.html["En savoir plus sur les classes de stockage Google Cloud prises en charge"]
+
+
+Cloud Tiering utilise la classe de stockage/le niveau d'accès par défaut du fournisseur de cloud pour vos données inactives.  Cependant, vous pouvez appliquer une règle de cycle de vie afin que les données passent automatiquement de la classe de stockage par défaut à une autre classe de stockage après un certain nombre de jours.  Cela peut vous aider à réduire vos coûts en déplaçant les données très froides vers un stockage moins coûteux.
+
+
+NOTE: Vous ne pouvez pas sélectionner de règles de cycle de vie pour les données hiérarchisées vers StorageGRID ou un stockage compatible S3.
+
+
+
+== Tarifs et licences
+
+Payez pour Cloud Tiering via un abonnement à la carte, un abonnement annuel, une licence de hiérarchisation NetApp personnalisée ou une combinaison des deux.  Un essai gratuit de 30 jours est disponible pour votre premier cluster si vous n'avez pas de licence.
+
+Il n'y a aucun frais lors de la hiérarchisation des données vers StorageGRID.  Ni une licence BYOL ni une inscription PAYGO ne sont requises.
+
+https://bluexp.netapp.com/pricing#tiering["Voir les détails des tarifs"^] .
+
+Étant donné que Cloud Tiering préserve l'efficacité du stockage du volume source, vous payez au fournisseur de cloud les coûts de stockage d'objets pour les données hiérarchisées après l'efficacité ONTAP (pour la plus petite quantité de données après l'application de la déduplication et de la compression).
+
+
+
+=== Essai gratuit de 30 jours
+
+Si vous ne disposez pas d'une licence Cloud Tiering, un essai gratuit de 30 jours de la hiérarchisation démarre lorsque vous configurez la hiérarchisation sur votre premier cluster.  Une fois l'essai gratuit de 30 jours terminé, vous devrez payer pour la hiérarchisation via un abonnement à la carte, un abonnement annuel, une licence BYOL ou une combinaison des deux.
+
+Si votre essai gratuit se termine et que vous n'avez pas souscrit ou ajouté de licence, ONTAP ne hiérarchise plus les données froides vers le stockage d'objets.  Toutes les données précédemment hiérarchisées restent accessibles, ce qui signifie que vous pouvez récupérer et utiliser ces données.  Une fois récupérées, ces données sont déplacées vers le niveau de performance à partir du cloud.
+
+
+
+=== Abonnement à la carte
+
+Cloud Tiering propose des licences basées sur la consommation dans un modèle de paiement à l'utilisation.  Après avoir souscrit un abonnement via la place de marché de votre fournisseur cloud, vous payez par Go pour des données à plusieurs niveaux : il n'y a pas de paiement initial.  Vous êtes facturé par votre fournisseur cloud via votre facture mensuelle.
+
+Vous devez vous abonner même si vous avez un essai gratuit ou si vous apportez votre propre licence (BYOL) :
+
+* L'abonnement garantit qu'il n'y aura aucune interruption de service après la fin de votre essai gratuit.
++
+Une fois l'essai terminé, vous serez facturé toutes les heures en fonction de la quantité de données que vous avez sélectionnée.
+
+* Si vous hiérarchisez plus de données que ce qui est autorisé par votre licence BYOL, la hiérarchisation des données se poursuit tout au long de votre abonnement à la carte.
++
+Par exemple, si vous disposez d'une licence de 10 To, toute capacité au-delà de 10 To est facturée via l'abonnement à la carte.
+
+
+
+Vous ne serez pas facturé sur votre abonnement à la carte pendant votre essai gratuit ou si vous n'avez pas dépassé votre licence Cloud Tiering BYOL.
+
+link:task-licensing-cloud-tiering.html#use-a-bluexp-tiering-paygo-subscription["Découvrez comment configurer un abonnement à la carte"] .
+
+
+
+=== Contrat annuel
+
+Cloud Tiering propose un contrat annuel lors de la hiérarchisation des données inactives vers Amazon S3 ou Azure.  Il est disponible pour des durées de 1, 2 ou 3 ans.
+
+Les contrats annuels ne sont actuellement pas pris en charge lors de la hiérarchisation vers Google CLoud.
+
+
+
+=== Apportez votre propre permis
+
+Apportez votre propre licence en achetant une licence *Cloud Tiering* auprès de NetApp (anciennement connue sous le nom de licence « Cloud Tiering »).  Vous pouvez acheter des licences d'une durée de 1, 2 ou 3 ans et spécifier n'importe quelle quantité de capacité de hiérarchisation (à partir d'un minimum de 10 Tio).  La licence BYOL Cloud Tiering est une licence _flottante_ que vous pouvez utiliser sur plusieurs clusters ONTAP sur site.  La capacité de hiérarchisation totale que vous définissez dans votre licence Cloud Tiering peut être utilisée par tous vos clusters locaux.
+
+Après avoir acheté une licence Cloud Tiering, vous devrez ajouter la licence à la console NetApp . link:task-licensing-cloud-tiering.html#use-a-bluexp-tiering-byol-license["Découvrez comment utiliser une licence Cloud Tiering BYOL"] .
+
+Comme indiqué ci-dessus, nous vous recommandons de configurer un abonnement à la carte, même si vous avez acheté une licence BYOL.
+
+
+NOTE: À partir d'août 2021, l'ancienne licence * FabricPool* a été remplacée par la licence * Cloud Tiering *. link:task-licensing-cloud-tiering.html#bluexp-tiering-byol-licensing-starting-in-2021["En savoir plus sur les différences entre la licence Cloud Tiering et la licence FabricPool"] .
+
+
+
+== Comment fonctionne le Cloud Tiering
+
+Cloud Tiering est un service géré par NetApp qui utilise la technologie FabricPool pour hiérarchiser automatiquement les données inactives (froides) de vos clusters ONTAP sur site vers le stockage d'objets dans votre cloud public ou privé.  Les connexions à ONTAP s'effectuent à partir d'un agent de console.
+
+L'image suivante montre la relation entre chaque composant :
+
+image:diagram_cloud_tiering.png["Une image d'architecture qui montre le service Cloud Tiering avec une connexion à l'agent de console de votre fournisseur de cloud, l'agent avec une connexion à votre cluster ONTAP et une connexion entre le cluster ONTAP et le stockage d'objets de votre fournisseur de cloud.  Les données actives résident dans le cluster ONTAP , tandis que les données inactives résident dans le stockage d'objets."]
+
+À un niveau élevé, Cloud Tiering fonctionne comme ceci :
+
+. Vous découvrez votre cluster sur site à partir de la console NetApp .
+. Vous configurez la hiérarchisation en fournissant des détails sur votre stockage d'objets, y compris le bucket/conteneur, une classe de stockage ou un niveau d'accès et des règles de cycle de vie pour les données hiérarchisées.
+. La console configure ONTAP pour utiliser le fournisseur de stockage d’objets et découvre la quantité de données actives et inactives sur le cluster.
+. Vous choisissez les volumes à hiérarchiser et la politique de hiérarchisation à appliquer à ces volumes.
+. ONTAP commence à hiérarchiser les données inactives vers le magasin d'objets dès que les données ont atteint les seuils pour être considérées comme inactives (voir<<Politiques de hiérarchisation des volumes>> ).
+. Si vous avez appliqué une règle de cycle de vie aux données hiérarchisées (disponible uniquement pour certains fournisseurs), les données hiérarchisées plus anciennes sont attribuées à un niveau plus rentable après un certain nombre de jours.
+
+
+
+
+=== Politiques de hiérarchisation des volumes
+
+Lorsque vous sélectionnez les volumes que vous souhaitez hiérarchiser, vous choisissez une _stratégie de hiérarchisation des volumes_ à appliquer à chaque volume.  Une politique de hiérarchisation détermine quand ou si les blocs de données utilisateur d'un volume sont déplacés vers le cloud.
+
+Vous pouvez également ajuster la *période de refroidissement*.  Il s'agit du nombre de jours pendant lesquels les données utilisateur d'un volume doivent rester inactives avant d'être considérées comme « froides » et déplacées vers le stockage d'objets.  Pour les stratégies de hiérarchisation qui vous permettent d'ajuster la période de refroidissement, les valeurs valides sont :
+
+* 2 à 183 jours lors de l'utilisation ONTAP 9.8 et versions ultérieures
+* 2 à 63 jours pour les versions antérieures ONTAP
+
+
+2 à 63 est la meilleure pratique recommandée.
+
+Aucune politique (aucune):: Conserve les données sur un volume dans le niveau de performance, empêchant leur déplacement vers le niveau cloud.
+Instantanés froids (instantané uniquement):: ONTAP hiérarchise les blocs Snapshot froids du volume qui ne sont pas partagés avec le système de fichiers actif vers le stockage d'objets.  Si les blocs de données froids sont lus au niveau cloud, ils deviennent chauds et sont déplacés vers le niveau de performance.
++
+--
+Les données sont hiérarchisées uniquement lorsqu'un agrégat a atteint 50 % de sa capacité et lorsque les données ont atteint la période de refroidissement.  Le nombre par défaut de jours de refroidissement est de 2, mais vous pouvez ajuster ce nombre.
+
+
+NOTE: Les données réchauffées sont réécrites dans le niveau de performance uniquement s'il y a de l'espace.  Si la capacité du niveau de performance est remplie à plus de 70 %, les blocs continuent d’être accessibles à partir du niveau cloud.
+
+--
+Données utilisateur froides et instantanés (Auto):: ONTAP hiérarchise tous les blocs froids du volume (à l'exclusion des métadonnées) vers le stockage d'objets.  Les données froides incluent non seulement des copies instantanées, mais également des données utilisateur froides provenant du système de fichiers actif.
++
+--
+* S'ils sont lus par des lectures aléatoires, les blocs de données froids du niveau cloud deviennent chauds et sont déplacés vers le niveau de performance.
+* Si les blocs de données sont lus par des lectures séquentielles, telles que celles associées aux analyses d'index et d'antivirus, les blocs de données froids sur le niveau cloud restent froids et ne sont pas écrits sur le niveau de performance.
++
+Cette politique est disponible à partir d' ONTAP 9.4.
+
++
+Les données sont hiérarchisées uniquement lorsqu'un agrégat a atteint 50 % de sa capacité et lorsque les données ont atteint la période de refroidissement.  Le nombre par défaut de jours de refroidissement est de 31, mais vous pouvez ajuster ce nombre.
+
++
+
+NOTE: Les données réchauffées sont réécrites dans le niveau de performance uniquement s'il y a de l'espace.  Si la capacité du niveau de performance est remplie à plus de 70 %, les blocs continuent d’être accessibles à partir du niveau cloud.
+
+
+
+--
+Toutes les données utilisateur (Tout):: Toutes les données (à l’exception des métadonnées) sont immédiatement marquées comme froides et hiérarchisées vers le stockage d’objets dès que possible.  Il n’est pas nécessaire d’attendre 48 heures pour que les nouveaux blocs d’un volume deviennent froids.  Les blocs situés dans le volume avant la définition de la politique All nécessitent 48 heures pour devenir froids.
++
+--
+Si les blocs de données froids sont lus sur le niveau cloud, ils restent froids et ne sont pas réécrits sur le niveau de performance.  Cette politique est disponible à partir d' ONTAP 9.6.
+
+Tenez compte des éléments suivants avant de choisir cette politique de hiérarchisation :
+
+* La hiérarchisation des données réduit immédiatement l’efficacité du stockage (en ligne uniquement).
+* Vous ne devez utiliser cette politique que si vous êtes sûr que les données froides sur le volume ne changeront pas.
+* Le stockage d’objets n’est pas transactionnel et entraînera une fragmentation importante s’il est soumis à des modifications.
+* Tenez compte de l’impact des transferts SnapMirror avant d’attribuer la stratégie de hiérarchisation « Tous » aux volumes sources dans les relations de protection des données.
++
+Étant donné que les données sont hiérarchisées immédiatement, SnapMirror lira les données du niveau cloud plutôt que du niveau de performance.  Cela entraînera des opérations SnapMirror plus lentes, ce qui ralentira peut-être d'autres opérations SnapMirror plus tard dans la file d'attente, même si elles utilisent des stratégies de hiérarchisation différentes.
+
+* NetApp Backup and Recovery est également affecté par les volumes définis avec une politique de hiérarchisation. https://docs.netapp.com/us-en/bluexp-backup-recovery/concept-ontap-backup-to-cloud.html#fabricpool-tiering-policy-considerations["Consultez les considérations relatives à la politique de hiérarchisation avec la sauvegarde et la récupération"^] .
+
+
+--
+Toutes les données utilisateur DP (sauvegarde):: Toutes les données d’un volume de protection des données (à l’exclusion des métadonnées) sont immédiatement déplacées vers le niveau cloud.  Si les blocs de données froids sont lus sur le niveau cloud, ils restent froids et ne sont pas réécrits sur le niveau de performance (à partir d' ONTAP 9.4).
++
+--
+
+NOTE: Cette politique est disponible pour ONTAP 9.5 ou version antérieure.  Elle a été remplacée par la politique de hiérarchisation *Tous* à partir d' ONTAP 9.6.
+
+--
+
