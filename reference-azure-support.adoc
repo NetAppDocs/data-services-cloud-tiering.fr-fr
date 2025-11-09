@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: reference-azure-support.html 
 keywords: microsoft azure, azure, hot, access tier, cold, regions, cloud tiering, tier, bluexp 
-summary: NetApp Cloud Tiering prend en charge deux niveaux d’accès et la plupart des régions. 
+summary: 'NetApp Cloud Tiering prend en charge deux niveaux d"accès et la plupart des régions.' 
 ---
-= Niveaux et régions d'accès Azure Blob pris en charge pour la hiérarchisation du cloud NetApp
+= Niveaux d'accès et régions Azure Blob pris en charge pour NetApp Cloud Tiering
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,22 +14,22 @@ summary: NetApp Cloud Tiering prend en charge deux niveaux d’accès et la plup
 
 
 [role="lead"]
-NetApp Cloud Tiering prend en charge deux niveaux d’accès et la plupart des régions.
+NetApp Cloud Tiering prend en charge deux niveaux d'accès et la plupart des régions.
 
 
 
 == Niveaux d'accès Azure Blob pris en charge
 
-Lorsque vous configurez la hiérarchisation des données sur Azure à partir de vos systèmes ONTAP locaux, Cloud Tiering utilise automatiquement le niveau d’accès _Hot_ pour vos données inactives.  Cloud Tiering peut appliquer une règle de cycle de vie afin que les données passent du niveau d'accès _Hot_ au niveau d'accès _Cool_ après un certain nombre de jours.
+Lorsque vous configurez la hiérarchisation des données vers Azure à partir de vos systèmes ONTAP locaux, Cloud Tiering utilise automatiquement le niveau d'accès _Hot_ pour vos données inactives.  La hiérarchisation du cloud peut appliquer une règle de cycle de vie afin que les données passent du niveau d'accès _chaud_ au niveau d'accès _froid_ après un certain nombre de jours.
 
 Si vous ne choisissez pas le niveau d'accès _Cool_, les données restent dans le niveau d'accès _Hot_ et aucune règle n'est appliquée.
 
 Lorsque vous configurez une règle de cycle de vie Cloud Tiering, vous ne devez configurer aucune règle de cycle de vie lors de la configuration du conteneur dans votre compte Azure.
 
-https://docs.microsoft.com/en-us/azure/storage/blobs/access-tiers-overview["En savoir plus sur les niveaux d'accès Azure Blob"^] .
+https://docs.microsoft.com/en-us/azure/storage/blobs/access-tiers-overview["En savoir plus sur les niveaux d'accès Azure Blob"^].
 
 
 
 == Régions Azure prises en charge
 
-La hiérarchisation du cloud est prise en charge dans toutes les régions Azure, à l’exception de la Chine, où Microsoft Azure est exploité par 21Vianet.
+La hiérarchisation du cloud est prise en charge dans toutes les régions Azure, à l'exception de la Chine, où Microsoft Azure est exploité par 21Vianet.

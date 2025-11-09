@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: task-tiering-onprem-overview.html 
 keywords: overview, tiering overview, tiered clusters, clusters enabled for tiering, data tiering overview, cold data, hot data, tiered data, savings, savings opportunities, saving opportunity, policies, cold snapshots, all dp user data, cold user data & snapshots, cold user data and snapshots, all user data, no policy, marketplace subscriptions, clusters associated 
-summary: Cloud Tiering fournit une vue agrégée de la hiérarchisation des données de chacun de vos clusters sur site.  Cet aperçu fournit une image claire de votre environnement et vous permet de prendre les mesures appropriées. 
+summary: Cloud Tiering offre une vue agrégée de la hiérarchisation des données de chacun de vos clusters sur site.  Cet aperçu vous offre une vision claire de votre environnement et vous permet de prendre les mesures appropriées. 
 ---
-= Obtenez un aperçu de la hiérarchisation des données de vos clusters dans NetApp Cloud Tiering
+= Obtenez une vue d'ensemble de la hiérarchisation des données de vos clusters dans NetApp Cloud Tiering
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,33 +14,33 @@ summary: Cloud Tiering fournit une vue agrégée de la hiérarchisation des donn
 
 
 [role="lead"]
-NetApp Cloud Tiering fournit une vue agrégée de la hiérarchisation des données de chacun de vos clusters sur site.  Cet aperçu fournit une image claire de votre environnement et vous permet de prendre les mesures appropriées.
+NetApp Cloud Tiering offre une vue agrégée de la hiérarchisation des données de chacun de vos clusters sur site.  Cet aperçu vous offre une vision claire de votre environnement et vous permet de prendre les mesures appropriées.
 
-Sélectionnez *Cloud Tiering > Tableau de bord sur site* pour afficher les détails suivants sur votre environnement.
+Sélectionnez *Cloud Tiering > Tableau de bord sur site* pour afficher les détails suivants concernant votre environnement.
 
-image:screenshot_tiering_onprem_dashboard.png["Une capture d’écran de la page du tableau de bord sur site."]
+image:screenshot_tiering_onprem_dashboard.png["Capture d'écran de la page du tableau de bord local."]
 
-Clusters découverts:: Nombre de clusters sur site découverts par Cloud Tiering.  Le graphique fournit un aperçu de l’état de hiérarchisation de ces clusters.
+Clusters découverts:: Le nombre de clusters sur site que Cloud Tiering a détectés.  Le graphique donne un aperçu du niveau de hiérarchisation de ces groupes.
 +
 --
-* Hiérarchisation élevée - Clusters qui hiérarchisent plus de 20 % de leurs données froides
-* Faible hiérarchisation - Clusters qui hiérarchisent moins de 20 % de leurs données froides
+* Hiérarchisation élevée - Clusters hiérarchisant plus de 20 % de leurs données froides
+* Faible hiérarchisation - Clusters hiérarchisant moins de 20 % de leurs données froides
 * Pas de hiérarchisation - Clusters qui ne hiérarchisent aucune donnée
-* Non éligibles - Clusters qui ne prennent pas en charge la hiérarchisation des données
+* Non éligibles - Clusters ne prenant pas en charge la hiérarchisation des données
 
 
 --
-Aperçu des données:: La quantité de données utilisée par tous les clusters découverts. Le graphique montre la quantité de données hiérarchisées pour ces clusters.
+Aperçu des données:: La quantité de données utilisées par tous les clusters découverts. Le graphique montre la quantité de données hiérarchisées pour ces clusters.
 +
 --
-* Données hiérarchisées - Données froides totales hiérarchisées vers le cloud
-* Données froides - Données froides totales qui ne sont pas hiérarchisées
-* Données chaudes - Total des données chaudes actives en cours d'utilisation
-* Non éligible - Données totales qui ne sont pas hiérarchisées car le cluster ou le volume ne prend pas en charge la hiérarchisation des données
+* Données hiérarchisées - L'ensemble des données froides est transféré vers le cloud.
+* Données froides - Total des données froides non hiérarchisées
+* Données actives - Total des données actives en cours d'utilisation
+* Non éligible - Total des données non hiérarchisées car le cluster ou le volume ne prend pas en charge la hiérarchisation des données.
 
 
 --
-Aperçu de la hiérarchisation:: La quantité de données actuellement hiérarchisées et la quantité de données froides qui pourraient potentiellement être hiérarchisées.
-Politiques:: Le nombre de fois que chaque politique de hiérarchisation a été appliquée à un volume.
-Abonnements à la place de marché:: Le nombre de clusters associés à chaque type d'abonnement Marketplace et une indication sur l'état de votre abonnement.
+Aperçu de la hiérarchisation:: La quantité de données actuellement hiérarchisées et la quantité de données froides qui pourraient potentiellement l'être.
+Politiques:: Le nombre de fois où chaque politique de hiérarchisation a été appliquée à un volume.
+Abonnements à la plateforme:: Le nombre de clusters associés à chaque type d'abonnement Marketplace et une indication concernant l'état de votre abonnement.
 

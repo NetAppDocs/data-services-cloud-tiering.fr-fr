@@ -1,7 +1,6 @@
 ---
 settings:
   name: NetApp Cloud Tiering
-  platform: cloud
   internal:
     pdf_enabled: true
   prod:
@@ -11,7 +10,7 @@ settings:
   langs: fr-fr,us-en,de-de,es-es,it-it,pt-br,ja-jp,ko-kr,zh-cn,zh-tw
 sidebar:
   entries:
-  - title: Documentation sur NetApp Cloud Tiering
+  - title: Documentation NetApp Cloud Tiering
     url: "/index.html"
   - title: Notes de version
     url: "/whats-new.html"
@@ -19,31 +18,31 @@ sidebar:
     entries:
     - title: En savoir plus sur NetApp Cloud Tiering
       url: "/concept-cloud-tiering.html"
-    - title: Transférer les données sur site vers le cloud
+    - title: Transférez les données sur site vers le cloud
       entries:
       - title: Niveau vers Amazon S3
         url: "/task-tiering-onprem-aws.html"
-      - title: Stockage d'objets blob Azure
+      - title: Niveau vers stockage Blob Azure
         url: "/task-tiering-onprem-azure.html"
-      - title: Niveau de stockage Google Cloud
+      - title: Accès à Google Cloud Storage
         url: "/task-tiering-onprem-gcp.html"
       - title: Niveau vers StorageGRID
         url: "/task-tiering-onprem-storagegrid.html"
-      - title: Stockage d'objets de niveau vers S3
+      - title: Stockage d'objets de niveau S3
         url: "/task-tiering-onprem-s3-compat.html"
     - title: Configurer les licences
       url: "/task-licensing-cloud-tiering.html"
     - title: FAQ
       url: "/faq-cloud-tiering.html"
-  - title: Utiliser NetApp Cloud Tiering
+  - title: Utiliser la NetApp Cloud Tiering
     entries:
     - title: Gérer la hiérarchisation des données
       url: "/task-managing-tiering.html"
     - title: Gérer le stockage d'objets
       url: "/task-managing-object-storage.html"
-    - title: Tester les performances du cloud
+    - title: Test des performances du cloud
       url: "/task-tiering-test.html"
-    - title: Afficher l'aperçu de la hiérarchisation pour tous les clusters
+    - title: Afficher la vue d'ensemble de la hiérarchisation pour tous les clusters
       url: "/task-tiering-onprem-overview.html"
     - title: Surveiller l'état des alertes de hiérarchisation
       url: "/task-monitor-tiering-alerts.html"

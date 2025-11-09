@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: task-tiering-onprem-gcp.html 
 keywords: data tiering, fabricpool, cloud tiering, tiering cold data, tiering inactive data, tiering aff, tiering fas, tiering ontap, tiering volumes, tier data, tier cold data, tier fas, tier aff, tier ontap, google, gcp, google cloud storage 
-summary: 'Libérez de l"espace sur vos clusters ONTAP sur site en hiérarchisant les données inactives vers Google Cloud Storage dans NetApp Cloud Tiering' 
+summary: 'Libérez de l"espace sur vos clusters ONTAP locaux en transférant les données inactives vers Google Cloud Storage via NetApp Cloud Tiering.' 
 ---
-= Hiérarchiser les données des clusters ONTAP sur site vers Google Cloud Storage dans NetApp Cloud Tiering
+= Tierisation des données des clusters ONTAP sur site vers Google Cloud Storage dans NetApp Cloud Tiering
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,7 +14,7 @@ summary: 'Libérez de l"espace sur vos clusters ONTAP sur site en hiérarchisant
 
 
 [role="lead"]
-Libérez de l'espace sur vos clusters ONTAP sur site en hiérarchisant les données inactives vers Google Cloud Storage dans NetApp Cloud Tiering.
+Libérez de l'espace sur vos clusters ONTAP sur site en transférant les données inactives vers Google Cloud Storage dans NetApp Cloud Tiering.
 
 
 
@@ -22,100 +22,100 @@ Libérez de l'espace sur vos clusters ONTAP sur site en hiérarchisant les donn�
 
 Commencez rapidement en suivant ces étapes ou faites défiler les sections restantes pour obtenir tous les détails.
 
-.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["Un"]Préparez-vous à hiérarchiser les données vers Google Cloud Storage
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["Un"]Préparez-vous à hiérarchiser vos données vers Google Cloud Storage.
 [role="quick-margin-para"]
 Vous avez besoin des éléments suivants :
 
 [role="quick-margin-list"]
-* Un cluster ONTAP source sur site exécutant ONTAP 9.6 ou une version ultérieure que vous avez ajouté à la console NetApp et une connexion via un port spécifié par l'utilisateur à Google Cloud Storage. https://docs.netapp.com/us-en/bluexp-ontap-onprem/task-discovering-ontap.html["Apprenez à découvrir un cluster"^] .
-* Un compte de service doté du rôle d’administrateur de stockage prédéfini et des clés d’accès au stockage.
-* Un agent de console installé dans un VPC Google Cloud Platform.
-* Mise en réseau pour l'agent qui permet une connexion HTTPS sortante au cluster ONTAP de votre centre de données, à Google Cloud Storage et au service Cloud Tiering.
+* Un cluster ONTAP source sur site exécutant ONTAP 9.6 ou une version ultérieure que vous avez ajouté à la NetApp Console, et une connexion via un port spécifié par l'utilisateur à Google Cloud Storage. https://docs.netapp.com/us-en/bluexp-ontap-onprem/task-discovering-ontap.html["Apprenez à découvrir un cluster"^] .
+* Un compte de service disposant du rôle prédéfini d'administrateur de stockage et des clés d'accès au stockage.
+* Un agent Console installé dans un VPC Google Cloud Platform.
+* Mise en réseau de l'agent qui permet une connexion HTTPS sortante vers le cluster ONTAP de votre centre de données, vers Google Cloud Storage et vers le service Cloud Tiering.
 
 
-.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["Deux"]Configurer la hiérarchisation
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["Deux"]Mettre en place une hiérarchisation
 [role="quick-margin-para"]
-Dans la console NetApp , sélectionnez un système sur site, sélectionnez *Activer* pour le service de hiérarchisation et suivez les invites pour hiérarchiser les données vers Google Cloud Storage.
+Dans la NetApp Console, sélectionnez un système sur site, sélectionnez *Activer* pour le service de hiérarchisation et suivez les instructions pour hiérarchiser les données vers Google Cloud Storage.
 
-.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["Trois"]Configurer les licences
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["Trois"]Mise en place de la licence
 [role="quick-margin-para"]
-Une fois votre essai gratuit terminé, payez Cloud Tiering via un abonnement à la carte, une licence BYOL ONTAP Cloud Tiering ou une combinaison des deux :
+Une fois votre période d'essai gratuite terminée, vous pouvez payer pour Cloud Tiering via un abonnement à la carte, une licence BYOL ONTAP Cloud Tiering ou une combinaison des deux :
 
 [role="quick-margin-list"]
-* Pour vous abonner depuis la place de marché Google Cloud, https://console.cloud.google.com/marketplace/details/netapp-cloudmanager/cloud-manager?supportedpurview=project&rif_reserved["accéder à l'offre Marketplace"^] , sélectionnez *S'abonner*, puis suivez les instructions.
-* Pour payer en utilisant une licence Cloud Tiering BYOL, envoyez un e-mail à : ng-cloud-tiering@netapp.com?subject=Licensing [contactez-nous si vous devez en acheter une], puislink:https://docs.netapp.com/us-en/bluexp-digital-wallet/task-manage-data-services-licenses.html["ajoutez-le à la console NetApp"^] .
+* Pour vous abonner depuis la place de marché Google Cloud, https://console.cloud.google.com/marketplace/details/netapp-cloudmanager/cloud-manager?supportedpurview=project&rif_reserved["accéder à l'offre Marketplace"^] Sélectionnez *S'abonner*, puis suivez les instructions.
+* Pour payer avec une licence BYOL Cloud Tiering, envoyez un e-mail à ng-cloud-tiering@netapp.com?subject=Licensing[contactez-nous si vous devez en acheter une], puislink:https://docs.netapp.com/us-en/bluexp-digital-wallet/task-manage-data-services-licenses.html["ajoutez-le à la NetApp Console"^] .
 
 
 
 
 == Exigences
 
-Vérifiez la prise en charge de votre cluster ONTAP , configurez votre réseau et préparez votre stockage d’objets.
+Vérifiez la compatibilité avec votre cluster ONTAP , configurez votre réseau et préparez votre stockage d'objets.
 
 L'image suivante montre chaque composant et les connexions que vous devez préparer entre eux :
 
-image:diagram_cloud_tiering_google.png["Une image d'architecture qui montre le service Cloud Tiering avec une connexion à l'agent de votre fournisseur de cloud, l'agent avec une connexion à votre cluster ONTAP et une connexion entre le cluster ONTAP et le stockage d'objets de votre fournisseur de cloud.  Les données actives résident sur le cluster ONTAP , tandis que les données inactives résident dans le stockage d'objets."]
+image:diagram_cloud_tiering_google.png["Une image d'architecture montrant le service Cloud Tiering avec une connexion à l'agent de votre fournisseur de cloud, l'agent avec une connexion à votre cluster ONTAP et une connexion entre le cluster ONTAP et le stockage d'objets de votre fournisseur de cloud.  Les données actives résident sur le cluster ONTAP , tandis que les données inactives résident dans le stockage objet."]
 
 
-NOTE: La communication entre l'agent et Google Cloud Storage est destinée uniquement à la configuration du stockage d'objets.
+NOTE: La communication entre l'agent et Google Cloud Storage concerne uniquement la configuration du stockage d'objets.
 
 
 
 === Préparez vos clusters ONTAP
 
-Vos clusters ONTAP doivent répondre aux exigences suivantes lors de la hiérarchisation des données vers Google Cloud Storage.
+Vos clusters ONTAP doivent répondre aux exigences suivantes lors du transfert de données vers Google Cloud Storage.
 
 Plateformes ONTAP prises en charge::
 +
 --
-* Lorsque vous utilisez ONTAP 9.8 et versions ultérieures : vous pouvez hiérarchiser les données des systèmes AFF ou des systèmes FAS avec des agrégats entièrement SSD ou des agrégats entièrement HDD.
-* Lorsque vous utilisez ONTAP 9.7 et versions antérieures : vous pouvez hiérarchiser les données des systèmes AFF ou des systèmes FAS avec des agrégats entièrement SSD.
+* Lors de l'utilisation ONTAP 9.8 et versions ultérieures : vous pouvez hiérarchiser les données provenant de systèmes AFF ou de systèmes FAS avec des agrégats entièrement SSD ou des agrégats entièrement HDD.
+* Lors de l'utilisation ONTAP 9.7 et versions antérieures : vous pouvez hiérarchiser les données provenant de systèmes AFF ou de systèmes FAS avec des agrégats entièrement SSD.
 
 
 --
 Versions ONTAP prises en charge:: ONTAP 9.6 ou version ultérieure
-Exigences de mise en réseau des clusters::
+exigences de mise en réseau du cluster::
 +
 --
 * Le cluster ONTAP initie une connexion HTTPS via le port 443 vers Google Cloud Storage.
 +
-ONTAP lit et écrit des données vers et depuis le stockage d'objets.  Le stockage d'objets ne s'initialise jamais, il répond simplement.
+ONTAP lit et écrit des données vers et depuis le stockage d'objets. Le stockage d'objets ne s'initialise jamais, il répond simplement.
 
 +
-Bien qu'une interconnexion Google Cloud offre de meilleures performances et des frais de transfert de données inférieurs, elle n'est pas requise entre le cluster ONTAP et Google Cloud Storage.  Mais cela constitue la meilleure pratique recommandée.
+Bien qu'une interconnexion Google Cloud offre de meilleures performances et des frais de transfert de données inférieurs, elle n'est pas requise entre le cluster ONTAP et Google Cloud Storage.  Mais c'est la meilleure pratique recommandée.
 
 * Une connexion entrante est requise depuis l'agent, qui réside dans un VPC Google Cloud Platform.
 +
-Une connexion entre le cluster et le service Cloud Tiering n'est pas requise.
+Aucune connexion n'est requise entre le cluster et le service Cloud Tiering.
 
-* Un LIF intercluster est requis sur chaque nœud ONTAP qui héberge les volumes que vous souhaitez hiérarchiser.  Le LIF doit être associé à l'_IPspace_ ONTAP doit utiliser pour se connecter au stockage d'objets.
+* Une interface LIF inter-cluster est requise sur chaque nœud ONTAP hébergeant les volumes que vous souhaitez hiérarchiser.  L'interface LIF doit être associée à l'espace IP que ONTAP doit utiliser pour se connecter au stockage d'objets.
 +
-Lorsque vous configurez la hiérarchisation des données, Cloud Tiering vous invite à indiquer l'espace IP à utiliser.  Vous devez choisir l’espace IP auquel chaque LIF est associé.  Il peut s'agir de l'espace IP « par défaut » ou d'un espace IP personnalisé que vous avez créé.  En savoir plus sur https://docs.netapp.com/us-en/ontap/networking/create_a_lif.html["Les LIF"^] et https://docs.netapp.com/us-en/ontap/networking/standard_properties_of_ipspaces.html["Espaces IP"^] .
+Lorsque vous configurez la hiérarchisation des données, Cloud Tiering vous invite à indiquer l'espace IP à utiliser. Vous devez choisir l’espace IP auquel chaque LIF est associé. Il peut s'agir de l'espace IP « par défaut » ou d'un espace IP personnalisé que vous avez créé.  Apprenez-en davantage sur https://docs.netapp.com/us-en/ontap/networking/create_a_lif.html["Les LIF"^] et https://docs.netapp.com/us-en/ontap/networking/standard_properties_of_ipspaces.html["Espaces IP"^] .
 
 
 
 --
-Volumes et agrégats pris en charge:: Le nombre total de volumes que Cloud Tiering peut hiérarchiser peut être inférieur au nombre de volumes sur votre système ONTAP .  C'est parce que les volumes ne peuvent pas être hiérarchisés à partir de certains agrégats.  Consultez la documentation ONTAP pour https://docs.netapp.com/us-en/ontap/fabricpool/requirements-concept.html#functionality-or-features-not-supported-by-fabricpool["fonctionnalités ou caractéristiques non prises en charge par FabricPool"^] .
+Volumes et agrégats pris en charge:: Le nombre total de volumes que Cloud Tiering peut hiérarchiser peut être inférieur au nombre de volumes présents sur votre système ONTAP .  C'est parce que les volumes ne peuvent pas être hiérarchisés à partir de certains agrégats.  Consultez la documentation ONTAP pour https://docs.netapp.com/us-en/ontap/fabricpool/requirements-concept.html#functionality-or-features-not-supported-by-fabricpool["fonctionnalités ou caractéristiques non prises en charge par FabricPool"^] .
 
 
 
-NOTE: Cloud Tiering prend en charge les volumes FlexGroup .  La configuration fonctionne de la même manière que n’importe quel autre volume.
+NOTE: La hiérarchisation du cloud prend en charge les volumes FlexGroup .  La configuration fonctionne de la même manière que pour n'importe quel autre volume.
 
 
 
 === Découvrez un cluster ONTAP
 
-Vous devez ajouter votre système ONTAP sur site à la console NetApp avant de pouvoir commencer la hiérarchisation des données froides.
+Vous devez ajouter votre système ONTAP local à la NetApp Console avant de pouvoir commencer la hiérarchisation des données froides.
 
-https://docs.netapp.com/us-en/bluexp-ontap-onprem/task-discovering-ontap.html["Apprenez à découvrir un cluster"^] .
+https://docs.netapp.com/us-en/bluexp-ontap-onprem/task-discovering-ontap.html["Apprenez à découvrir un cluster"^].
 
 
 
 === Créer ou changer d'agents de console
 
-Un agent de console est requis pour hiérarchiser les données vers le cloud.  Lors de la hiérarchisation des données vers Google Cloud Storage, un agent doit être disponible dans un VPC Google Cloud Platform.  Vous devrez soit créer un nouvel agent, soit vous assurer que l'agent actuellement sélectionné réside dans Google Cloud.
+Un agent Console est nécessaire pour transférer les données vers le cloud.  Lors du transfert de données vers Google Cloud Storage, un agent doit être disponible dans un VPC Google Cloud Platform.  Vous devrez soit créer un nouvel agent, soit vous assurer que l'agent actuellement sélectionné se trouve dans Google Cloud.
 
-* https://docs.netapp.com/us-en/bluexp-setup-admin/concept-connectors.html["En savoir plus sur les agents"^]
+* https://docs.netapp.com/us-en/bluexp-setup-admin/concept-connectors.html["Découvrez les agents"^]
 * https://docs.netapp.com/us-en/bluexp-setup-admin/task-quick-start-connector-google.html["Déploiement d'un agent dans Google Cloud"^]
 
 
@@ -126,15 +126,15 @@ Un agent de console est requis pour hiérarchiser les données vers le cloud.  L
 Assurez-vous que l’agent de console dispose des connexions réseau requises.
 
 .Étapes
-. Assurez-vous que le VPC sur lequel l’agent est installé active les connexions suivantes :
+. Assurez-vous que le VPC sur lequel l'agent est installé autorise les connexions suivantes :
 +
-** Une connexion HTTPS via le port 443 au service Cloud Tiering et à votre stockage Google Cloud(https://docs.netapp.com/us-en/bluexp-setup-admin/task-set-up-networking-google.html#endpoints-contacted-for-day-to-day-operations["voir la liste des points de terminaison"^] )
+** Une connexion HTTPS via le port 443 au service Cloud Tiering et à votre espace de stockage Google Cloud.(https://docs.netapp.com/us-en/bluexp-setup-admin/task-set-up-networking-google.html#endpoints-contacted-for-day-to-day-operations["voir la liste des points de terminaison"^] )
 ** Une connexion HTTPS via le port 443 vers votre LIF de gestion de cluster ONTAP
 
 
-. Facultatif : activez l’accès privé à Google sur le sous-réseau où vous prévoyez de déployer l’agent.
+. Facultatif : activez l’accès privé Google sur le sous-réseau où vous prévoyez de déployer l’agent.
 +
-https://cloud.google.com/vpc/docs/configure-private-google-access["Accès privé à Google"^]est recommandé si vous disposez d'une connexion directe entre votre cluster ONTAP et le VPC et que vous souhaitez que la communication entre l'agent et Google Cloud Storage reste dans votre réseau privé virtuel.  Notez que l'accès privé à Google fonctionne avec des instances de VM qui n'ont que des adresses IP internes (privées) (aucune adresse IP externe).
+https://cloud.google.com/vpc/docs/configure-private-google-access["Accès privé à Google"^]Cette option est recommandée si vous disposez d'une connexion directe entre votre cluster ONTAP et le VPC et que vous souhaitez que la communication entre l'agent et Google Cloud Storage reste au sein de votre réseau privé virtuel.  Notez que l'accès privé à Google fonctionne avec des instances de VM qui possèdent uniquement des adresses IP internes (privées) (aucune adresse IP externe).
 
 
 
@@ -142,23 +142,21 @@ https://cloud.google.com/vpc/docs/configure-private-google-access["Accès privé
 
 === Préparer Google Cloud Storage
 
-Lorsque vous configurez la hiérarchisation, vous devez fournir des clés d’accès au stockage pour un compte de service disposant d’autorisations d’administrateur de stockage.  Un compte de service permet à Cloud Tiering d'authentifier et d'accéder aux buckets Cloud Storage utilisés pour la hiérarchisation des données.  Les clés sont nécessaires pour que Google Cloud Storage sache qui fait la demande.
+Lors de la configuration de la hiérarchisation, vous devez fournir des clés d'accès au stockage pour un compte de service disposant des autorisations d'administrateur de stockage.  Un compte de service permet à Cloud Tiering de s'authentifier et d'accéder aux compartiments Cloud Storage utilisés pour la hiérarchisation des données. Les clés sont nécessaires pour que Google Cloud Storage sache qui fait la demande.
 
-Les buckets Cloud Storage doivent être dans unlink:reference-google-support.html#supported-google-cloud-regions["région qui prend en charge le Cloud Tiering"] .
+Les compartiments de stockage cloud doivent se trouver dans unlink:reference-google-support.html#supported-google-cloud-regions["région prenant en charge la hiérarchisation du cloud"] .
 
 
-NOTE: Si vous prévoyez de configurer Cloud Tiering pour utiliser des classes de stockage à moindre coût vers lesquelles vos données hiérarchisées seront transférées après un certain nombre de jours, vous ne devez sélectionner aucune règle de cycle de vie lors de la configuration du bucket dans votre compte GCP.  Cloud Tiering gère les transitions du cycle de vie.
+NOTE: Si vous prévoyez de configurer Cloud Tiering pour utiliser des classes de stockage moins coûteuses vers lesquelles vos données hiérarchisées seront transférées après un certain nombre de jours, vous ne devez sélectionner aucune règle de cycle de vie lors de la configuration du compartiment dans votre compte GCP.  Le Cloud Tiering gère les transitions du cycle de vie.
 
 .Étapes
-. https://cloud.google.com/iam/docs/creating-managing-service-accounts#creating_a_service_account["Créez un compte de service doté du rôle d'administrateur de stockage prédéfini"^] .
+. https://cloud.google.com/iam/docs/creating-managing-service-accounts#creating_a_service_account["Créez un compte de service doté du rôle prédéfini d'administrateur de stockage."^].
 . Aller à https://console.cloud.google.com/storage/settings["Paramètres de stockage GCP"^] et créez des clés d’accès pour le compte de service :
 +
-.. Sélectionnez un projet et sélectionnez *Interopérabilité*.  Si vous ne l’avez pas déjà fait, sélectionnez *Activer l’accès à l’interopérabilité*.
-.. Sélectionnez un projet et sélectionnez *Interopérabilité*.  Si vous ne l’avez pas déjà fait, sélectionnez *Activer l’accès à l’interopérabilité*.
-.. Sous *Clés d'accès pour les comptes de service*, sélectionnez *Créer une clé pour un compte de service*, sélectionnez le compte de service que vous venez de créer, puis sélectionnez *Créer une clé*.
+.. Sélectionnez un projet et sélectionnez *Interopérabilité*. Si vous ne l’avez pas déjà fait, sélectionnez *Activer l’accès à l’interopérabilité*.
 .. Sous *Clés d'accès pour les comptes de service*, sélectionnez *Créer une clé pour un compte de service*, sélectionnez le compte de service que vous venez de créer, puis sélectionnez *Créer une clé*.
 +
-Vous devrez saisir les clés ultérieurement lors de la configuration de Cloud Tiering.
+Vous devrez saisir ces clés ultérieurement, lors de la configuration de la hiérarchisation du cloud.
 
 
 
@@ -166,69 +164,69 @@ Vous devrez saisir les clés ultérieurement lors de la configuration de Cloud T
 
 
 
-== Transférez les données inactives de votre premier cluster vers Google Cloud Storage
+== Stockez les données inactives de votre premier cluster dans Google Cloud Storage.
 
-Après avoir préparé votre environnement Google Cloud, commencez à hiérarchiser les données inactives de votre premier cluster.
+Une fois votre environnement Google Cloud configuré, commencez à hiérarchiser les données inactives de votre premier cluster.
 
 .Ce dont vous aurez besoin
-* https://docs.netapp.com/us-en/bluexp-ontap-onprem/task-discovering-ontap.html["Un système sur site ajouté à la console NetApp"^] .
-* Clés d’accès au stockage pour un compte de service doté du rôle d’administrateur de stockage.
+* https://docs.netapp.com/us-en/bluexp-ontap-onprem/task-discovering-ontap.html["Un système sur site a été ajouté à la NetApp Console."^].
+* Clés d'accès au stockage pour un compte de service disposant du rôle d'administrateur de stockage.
 
 
 .Étapes
 . Sélectionnez le système ONTAP sur site.
 . Cliquez sur *Activer* pour le service de hiérarchisation dans le panneau de droite.
 +
-Si la destination de hiérarchisation de Google Cloud Storage est disponible sur la page *Systèmes*, vous pouvez faire glisser le cluster sur le système Google Cloud Storage pour lancer l'assistant de configuration.
+Si la destination de hiérarchisation Google Cloud Storage est disponible sur la page *Systèmes*, vous pouvez glisser le cluster sur le système Google Cloud Storage pour lancer l'assistant de configuration.
 
 +
-image:screenshot_setup_tiering_onprem.png["Une capture d’écran qui montre l’option Activer qui apparaît sur le côté droit de l’écran après avoir sélectionné un système ONTAP sur site."]
+image:screenshot_setup_tiering_onprem.png["Capture d'écran montrant l'option Activer qui apparaît sur le côté droit de l'écran après avoir sélectionné un système ONTAP sur site."]
 
-. *Définir le nom du stockage d’objets* : saisissez un nom pour ce stockage d’objets.  Il doit être unique par rapport à tout autre stockage d’objets que vous pouvez utiliser avec des agrégats sur ce cluster.
-. *Sélectionner le fournisseur* : Sélectionnez *Google Cloud* et sélectionnez *Continuer*.
-. Suivez les étapes des pages *Créer un stockage d'objets* :
+. *Définir le nom du stockage d'objets* : Saisissez un nom pour ce stockage d'objets.  Il doit être unique par rapport à tout autre stockage d'objets que vous pourriez utiliser avec des agrégats sur ce cluster.
+. *Sélectionnez le fournisseur* : Sélectionnez *Google Cloud* et sélectionnez *Continuer*.
+. Suivez les étapes décrites sur les pages *Créer un stockage d'objets* :
 +
-.. *Bucket* : ajoutez un nouveau bucket Google Cloud Storage ou sélectionnez un bucket existant.
-.. *Cycle de vie de la classe de stockage* : Cloud Tiering gère les transitions du cycle de vie de vos données hiérarchisées.  Les données commencent dans la classe _Standard_, mais vous pouvez créer des règles pour appliquer différentes classes de stockage après un certain nombre de jours.
+.. *Bucket* : Ajoutez un nouveau bucket Google Cloud Storage ou sélectionnez un bucket existant.
+.. *Cycle de vie des classes de stockage* : Cloud Tiering gère les transitions du cycle de vie de vos données hiérarchisées.  Les données sont initialement stockées dans la classe _Standard_, mais vous pouvez créer des règles pour appliquer différentes classes de stockage après un certain nombre de jours.
 +
-Sélectionnez la classe de stockage Google Cloud vers laquelle vous souhaitez transférer les données hiérarchisées et le nombre de jours avant que les données ne soient attribuées à cette classe, puis sélectionnez *Continuer*.  Par exemple, la capture d'écran ci-dessous montre que les données hiérarchisées sont attribuées à la classe _Nearline_ de la classe _Standard_ après 30 jours dans le stockage d'objets, puis à la classe _Coldline_ après 60 jours dans le stockage d'objets.
-
-+
-Si vous choisissez *Conserver les données dans cette classe de stockage*, les données restent dans cette classe de stockage. link:reference-google-support.html["Voir les classes de stockage prises en charge"^] .
+Sélectionnez la classe de stockage Google Cloud vers laquelle vous souhaitez transférer les données hiérarchisées, ainsi que le nombre de jours avant l'affectation des données à cette classe, puis sélectionnez *Continuer*.  Par exemple, la capture d'écran ci-dessous montre que les données hiérarchisées sont affectées à la classe _Nearline_ à partir de la classe _Standard_ après 30 jours de stockage d'objets, puis à la classe _Coldline_ après 60 jours de stockage d'objets.
 
 +
-image:screenshot_tiering_lifecycle_selection_gcp.png["Une capture d'écran montrant comment sélectionner des classes de stockage supplémentaires qui sont attribuées à vos données après un certain nombre de jours."]
+Si vous choisissez *Conserver les données dans cette classe de stockage*, les données resteront dans cette classe de stockage. link:reference-google-support.html["Voir les classes de stockage prises en charge"^].
 
 +
-Notez que la règle de cycle de vie est appliquée à tous les objets du bucket sélectionné.
-
-.. *Informations d'identification* : saisissez la clé d'accès au stockage et la clé secrète d'un compte de service doté du rôle d'administrateur de stockage.
-.. *Réseau de cluster* : sélectionnez l’espace IP ONTAP doit utiliser pour se connecter au stockage d’objets.
-+
-La sélection de l'espace IP correct garantit que Cloud Tiering peut établir une connexion d' ONTAP au stockage d'objets de votre fournisseur de cloud.
+image:screenshot_tiering_lifecycle_selection_gcp.png["Capture d'écran montrant comment sélectionner les classes de stockage supplémentaires qui seront attribuées à vos données après un certain nombre de jours."]
 
 +
-Vous pouvez également définir la bande passante réseau disponible pour télécharger des données inactives vers le stockage d'objets en définissant le « Taux de transfert maximal ».  Sélectionnez le bouton radio *Limité* et entrez la bande passante maximale pouvant être utilisée, ou sélectionnez *Illimité* pour indiquer qu'il n'y a pas de limite.
+Notez que la règle de cycle de vie s'applique à tous les objets du compartiment sélectionné.
+
+.. *Identifiants* : Saisissez la clé d’accès au stockage et la clé secrète d’un compte de service disposant du rôle d’administrateur de stockage.
+.. *Réseau en cluster* : Sélectionnez l’espace IP ONTAP doit utiliser pour se connecter au stockage d’objets.
++
+Le choix de l'espace IP approprié garantit que Cloud Tiering peut établir une connexion entre ONTAP et le stockage d'objets de votre fournisseur de cloud.
+
++
+Vous pouvez également définir la bande passante réseau disponible pour le transfert des données inactives vers le stockage d'objets en définissant le « débit de transfert maximal ». Sélectionnez le bouton radio *Limité* et entrez la bande passante maximale pouvant être utilisée, ou sélectionnez *Illimité* pour indiquer qu'il n'y a pas de limite.
 
 
 
 . Cliquez sur *Continuer* pour sélectionner les volumes que vous souhaitez hiérarchiser.
-. Sur la page _Volumes hiérarchisés_, sélectionnez les volumes pour lesquels vous souhaitez configurer la hiérarchisation et lancez la page Politique de hiérarchisation :
+. Sur la page _Tier Volumes_, sélectionnez les volumes pour lesquels vous souhaitez configurer la hiérarchisation et lancez la page Tiering Policy :
 +
-** Pour sélectionner tous les volumes, cochez la case dans la ligne de titre (image:button_backup_all_volumes.png[""] ) et sélectionnez *Configurer les volumes*.
+** Pour sélectionner tous les volumes, cochez la case dans la ligne du titre (image:button_backup_all_volumes.png[""] ) et sélectionnez *Configurer les volumes*.
 ** Pour sélectionner plusieurs volumes, cochez la case correspondant à chaque volume (image:button_backup_1_volume.png[""] ) et sélectionnez *Configurer les volumes*.
-** Pour sélectionner un seul volume, sélectionnez la ligne (ouimage:screenshot_edit_icon.gif["modifier l'icône du crayon"] icône) pour le volume.
+** Pour sélectionner un seul volume, sélectionnez la ligne (ouimage:screenshot_edit_icon.gif["icône de modification du crayon"] icône) pour le volume.
 +
-image:screenshot_tiering_initial_volumes.png["Une capture d'écran qui montre comment sélectionner un seul volume, plusieurs volumes ou tous les volumes, et le bouton Modifier les volumes sélectionnés."]
+image:screenshot_tiering_initial_volumes.png["Une capture d'écran montrant comment sélectionner un seul volume, plusieurs volumes ou tous les volumes, ainsi que le bouton « Modifier les volumes sélectionnés »."]
 
 
 
-. Dans la boîte de dialogue _Politique de hiérarchisation_, sélectionnez une politique de hiérarchisation, ajustez éventuellement les jours de refroidissement pour les volumes sélectionnés et sélectionnez *Appliquer*.
+. Dans la boîte de dialogue _Stratégie de hiérarchisation_, sélectionnez une stratégie de hiérarchisation, ajustez éventuellement les jours de refroidissement pour les volumes sélectionnés, puis sélectionnez *Appliquer*.
 +
-link:concept-cloud-tiering.html#volume-tiering-policies["En savoir plus sur les politiques de hiérarchisation des volumes et les jours de refroidissement"] .
+link:concept-cloud-tiering.html#volume-tiering-policies["Apprenez-en davantage sur les politiques de tarification par paliers et les jours de refroidissement."].
 
 +
-image:screenshot_tiering_initial_policy_settings.png["Une capture d’écran qui montre les paramètres de stratégie de hiérarchisation configurables."]
+image:screenshot_tiering_initial_policy_settings.png["Capture d'écran montrant les paramètres configurables de la politique de hiérarchisation."]
 
 
 
@@ -236,8 +234,8 @@ image:screenshot_tiering_initial_policy_settings.png["Une capture d’écran qui
 Vous avez configuré avec succès la hiérarchisation des données des volumes du cluster vers le stockage d'objets Google Cloud.
 
 .Quelle est la prochaine étape ?
-link:task-licensing-cloud-tiering.html["Assurez-vous de vous abonner au service Cloud Tiering"] .
+link:task-licensing-cloud-tiering.html["Assurez-vous de vous abonner au service Cloud Tiering"].
 
-Vous pouvez consulter les informations sur les données actives et inactives du cluster. link:task-managing-tiering.html["En savoir plus sur la gestion de vos paramètres de hiérarchisation"] .
+Vous pouvez consulter les informations relatives aux données actives et inactives du cluster. link:task-managing-tiering.html["Apprenez-en davantage sur la gestion de vos paramètres de hiérarchisation"].
 
-Vous pouvez également créer un stockage d'objets supplémentaire dans les cas où vous souhaitez hiérarchiser les données de certains agrégats d'un cluster vers différents magasins d'objets.  Ou si vous prévoyez d'utiliser FabricPool Mirroring où vos données hiérarchisées sont répliquées vers un magasin d'objets supplémentaire. link:task-managing-object-storage.html["En savoir plus sur la gestion des magasins d'objets"] .
+Vous pouvez également créer un stockage d'objets supplémentaire dans les cas où vous souhaiteriez hiérarchiser les données de certains agrégats d'un cluster vers différents stockages d'objets.  Ou si vous prévoyez d'utiliser FabricPool Mirroring, où vos données hiérarchisées sont répliquées sur un stockage d'objets supplémentaire. link:task-managing-object-storage.html["Apprenez-en davantage sur la gestion des magasins d'objets"].

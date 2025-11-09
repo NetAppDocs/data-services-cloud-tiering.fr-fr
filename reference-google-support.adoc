@@ -20,7 +20,7 @@ NetApp Cloud Tiering prend en charge plusieurs classes de stockage Google Cloud 
 
 == Classes de stockage GCP prises en charge
 
-Lorsque vous configurez la hiérarchisation des données sur GCP à partir de vos systèmes ONTAP locaux, Cloud Tiering utilise automatiquement la classe de stockage _Standard_ pour vos données inactives.  Cloud Tiering peut appliquer une règle de cycle de vie afin que les données passent de la classe de stockage _Standard_ à d'autres classes de stockage après un certain nombre de jours.  Vous pouvez choisir parmi les classes de stockage suivantes :
+Lorsque vous configurez la hiérarchisation des données vers GCP à partir de vos systèmes ONTAP sur site, Cloud Tiering utilise automatiquement la classe de stockage _Standard_ pour vos données inactives.  Cloud Tiering peut appliquer une règle de cycle de vie afin que les données passent de la classe de stockage _Standard_ à d'autres classes de stockage après un certain nombre de jours.  Vous pouvez choisir parmi les classes de stockage suivantes :
 
 * Nearline
 * Coldline
@@ -29,15 +29,15 @@ Lorsque vous configurez la hiérarchisation des données sur GCP à partir de vo
 
 Si vous ne choisissez pas une autre classe de stockage, les données restent dans la classe de stockage _Standard_ et aucune règle n'est appliquée.
 
-Lorsque vous configurez une règle de cycle de vie Cloud Tiering, vous ne devez configurer aucune règle de cycle de vie lors de la configuration du bucket dans votre compte Google.
+Lorsque vous configurez une règle de cycle de vie Cloud Tiering, vous ne devez configurer aucune règle de cycle de vie lors de la configuration du compartiment dans votre compte Google.
 
-https://cloud.google.com/storage/docs/storage-classes["En savoir plus sur les cours Google Cloud Storage"^] .
+https://cloud.google.com/storage/docs/storage-classes["Découvrez les cours sur Google Cloud Storage"^].
 
 
 
 == Régions Google Cloud prises en charge
 
-Cloud Tiering prend en charge les régions suivantes.
+Le Cloud Tiering prend en charge les régions suivantes.
 
 
 
@@ -48,7 +48,7 @@ Cloud Tiering prend en charge les régions suivantes.
 * Montréal
 * Virginie du Nord
 * Oregon
-* São Paulo
+* Sao-Paulo
 * Caroline du Sud
 
 
@@ -57,7 +57,7 @@ Cloud Tiering prend en charge les régions suivantes.
 === Asie-Pacifique
 
 * Hong Kong
-* Bombay
+* Mumbai
 * Osaka
 * Singapour
 * Sydney

@@ -18,7 +18,7 @@ Découvrez les nouveautés de NetApp Cloud Tiering.
 
 
 
-== 06 octobre 2025
+== 6 octobre 2025
 
 
 
@@ -30,9 +30,9 @@ La BlueXP tiering a été renommée NetApp Cloud Tiering.
 
 === BlueXP est désormais NetApp Console
 
-La console NetApp , construite sur la base BlueXP améliorée et restructurée, fournit une gestion centralisée du stockage NetApp et des services de données NetApp dans les environnements sur site et cloud à l'échelle de l'entreprise, offrant des informations en temps réel, des flux de travail plus rapides et une administration simplifiée, hautement sécurisée et conforme.
+La NetApp Console, construite sur la base BlueXP améliorée et restructurée, fournit une gestion centralisée du stockage NetApp et des NetApp Data Services dans les environnements sur site et cloud à l'échelle de l'entreprise, offrant des informations en temps réel, des flux de travail plus rapides et une administration simplifiée, hautement sécurisée et conforme.
 
-Pour plus de détails sur ce qui a changé, consultez lelink:https://docs.netapp.com/us-en/bluexp-relnotes/index.html["Notes de version de la console NetApp"] .
+Pour plus de détails sur les changements, consultez lelink:https://docs.netapp.com/us-en/bluexp-relnotes/index.html["Notes de version de la NetApp Console"] .
 
 
 
@@ -42,13 +42,13 @@ Pour plus de détails sur ce qui a changé, consultez lelink:https://docs.netapp
 
 === Utiliser un préfixe personnalisé pour le nom du bucket
 
-Auparavant, vous deviez utiliser le préfixe « fabric-pool » par défaut lors de la définition du nom du bucket, par exemple _fabric-pool-bucket1_. Vous pouvez désormais utiliser un préfixe personnalisé lors de la dénomination de votre bucket. Cette fonctionnalité est disponible uniquement lors de la hiérarchisation des données vers Amazon S3. https://docs.netapp.com/us-en/bluexp-tiering/task-tiering-onprem-aws.html#prepare-your-aws-environment["Apprendre encore plus"] .
+Auparavant, vous deviez utiliser le préfixe « fabric-pool » par défaut lors de la définition du nom du bucket, par exemple _fabric-pool-bucket1_. Vous pouvez désormais utiliser un préfixe personnalisé lors de la dénomination de votre bucket. Cette fonctionnalité est disponible uniquement lors du transfert de données vers Amazon S3. https://docs.netapp.com/us-en/bluexp-tiering/task-tiering-onprem-aws.html#prepare-your-aws-environment["Apprendre encore plus"] .
 
 
 
 === Rechercher un cluster sur tous les connecteurs BlueXP
 
-Si vous utilisez plusieurs connecteurs pour gérer tous les systèmes de stockage de votre environnement, certains clusters sur lesquels vous souhaitez implémenter la hiérarchisation peuvent se trouver dans des connecteurs différents. Si vous n'êtes pas sûr du connecteur qui gère un certain cluster, vous pouvez effectuer une recherche parmi tous les connecteurs à l'aide de Cloud Tiering. https://docs.netapp.com/us-en/bluexp-tiering/task-managing-tiering.html#search-for-a-cluster-across-all-bluexp-connectors["Apprendre encore plus"] .
+Si vous utilisez plusieurs connecteurs pour gérer tous les systèmes de stockage de votre environnement, certains clusters sur lesquels vous souhaitez implémenter la hiérarchisation peuvent se trouver dans des connecteurs différents. Si vous ne savez pas quel connecteur gère un cluster donné, vous pouvez effectuer une recherche parmi tous les connecteurs à l'aide de Cloud Tiering. https://docs.netapp.com/us-en/bluexp-tiering/task-managing-tiering.html#search-for-a-cluster-across-all-bluexp-connectors["Apprendre encore plus"] .
 
 
 
@@ -58,31 +58,31 @@ Si vous utilisez plusieurs connecteurs pour gérer tous les systèmes de stockag
 
 === Ajuster la bande passante pour transférer les données inactives
 
-Lorsque vous activez Cloud Tiering, ONTAP peut utiliser une quantité illimitée de bande passante réseau pour transférer les données inactives des volumes du cluster vers le stockage d'objets.  Si vous remarquez que la hiérarchisation du trafic affecte les charges de travail normales des utilisateurs, vous pouvez limiter la quantité de bande passante pouvant être utilisée pendant le transfert. https://docs.netapp.com/us-en/bluexp-tiering/task-managing-tiering.html#changing-the-network-bandwidth-available-to-upload-inactive-data-to-object-storage["Apprendre encore plus"] .
+Lorsque vous activez Cloud Tiering, ONTAP peut utiliser une quantité illimitée de bande passante réseau pour transférer les données inactives des volumes du cluster vers le stockage d'objets. Si vous constatez que la hiérarchisation du trafic affecte les charges de travail normales des utilisateurs, vous pouvez limiter la quantité de bande passante utilisable pendant le transfert. https://docs.netapp.com/us-en/bluexp-tiering/task-managing-tiering.html#changing-the-network-bandwidth-available-to-upload-inactive-data-to-object-storage["Apprendre encore plus"] .
 
 
 
 === Événement de hiérarchisation affiché dans le centre de notifications
 
-L'événement de hiérarchisation « Hiérarchiser les données supplémentaires du cluster <nom> vers le stockage d'objets pour augmenter l'efficacité de votre stockage » apparaît désormais sous la forme d'une notification lorsqu'un cluster hiérarchise moins de 20 % de ses données froides, y compris les clusters qui ne hiérarchisent aucune donnée.
+L'événement de hiérarchisation « Hier des données supplémentaires du cluster <nom> vers le stockage d'objets pour augmenter l'efficacité de votre stockage » apparaît désormais sous forme de notification lorsqu'un cluster hiérarchise moins de 20 % de ses données froides, y compris les clusters qui ne hiérarchisent aucune donnée.
 
-Cette notification est une « recommandation » pour vous aider à rendre vos systèmes plus efficaces et à économiser sur les coûts de stockage.  Il fournit un lien vers le https://bluexp.netapp.com/cloud-tiering-service-tco["Calculateur du coût total de possession et des économies de Cloud Tiering"^] pour vous aider à calculer vos économies.
-
-
-
-== 03 avril 2023
+Cette notification est une « recommandation » pour vous aider à rendre vos systèmes plus efficaces et à économiser sur les coûts de stockage. Il fournit un lien vers le https://bluexp.netapp.com/cloud-tiering-service-tco["Calculateur du coût total de possession et des économies de Cloud Tiering"^] pour vous aider à calculer vos économies.
 
 
 
-=== L'onglet Licence a été supprimé
-
-L'onglet Licences a été supprimé de l'interface Cloud Tiering.  Toutes les licences pour les abonnements Pay-as-you-go (PAYGO) sont désormais accessibles depuis le tableau de bord Cloud Tiering On-Premises.  Il existe également un lien depuis cette page vers le BlueXP digital wallet afin que vous puissiez visualiser et gérer toutes les licences BYOL (Cloud Tiering).
+== 3 avril 2023
 
 
 
-=== Les onglets de hiérarchisation ont été renommés et mis à jour
+=== L'onglet « Licence » a été supprimé.
 
-L'onglet « Tableau de bord des clusters » a été renommé « Clusters » et l'onglet « Aperçu sur site » a été renommé « Tableau de bord sur site ».  Ces pages ont ajouté quelques informations qui vous aideront à évaluer si vous pouvez optimiser votre espace de stockage avec une configuration de hiérarchisation supplémentaire.
+L'onglet « Licences » a été supprimé de l'interface de gestion des niveaux dans le cloud.  Toutes les licences pour les abonnements à la carte (PAYGO) sont désormais accessibles depuis le tableau de bord Cloud Tiering On-Premises.  Cette page contient également un lien vers le BlueXP digital wallet qui vous permet de consulter et de gérer vos licences BYOL (Bring-Your-Own Licenses) pour la gestion du Cloud Tiering.
+
+
+
+=== Les onglets de hiérarchisation ont été renommés et mis à jour.
+
+L'onglet « Tableau de bord des clusters » a été renommé « Clusters », et l'onglet « Vue d'ensemble sur site » a été renommé « Tableau de bord sur site ».  Ces pages contiennent des informations supplémentaires qui vous aideront à évaluer si vous pouvez optimiser votre espace de stockage grâce à une configuration de hiérarchisation supplémentaire.
 
 
 
@@ -90,23 +90,23 @@ L'onglet « Tableau de bord des clusters » a été renommé « Clusters » 
 
 
 
-=== Générer un rapport de hiérarchisation pour les volumes
+=== Générer un rapport de hiérarchisation des volumes
 
-Vous pouvez télécharger un rapport à partir de la page Volumes hiérarchisés afin de pouvoir consulter l'état de hiérarchisation de tous les volumes sur les clusters que vous gérez.  BlueXP Tiering génère un fichier .CSV que vous pouvez consulter et envoyer à d'autres personnes de votre entreprise selon vos besoins. https://docs.netapp.com/us-en/bluexp-tiering/task-managing-tiering.html#download-a-tiering-report-for-your-volumes["Découvrez comment télécharger le rapport de hiérarchisation"] .
-
-
-
-== 06 décembre 2022
+Vous pouvez télécharger un rapport depuis la page Tier Volumes afin de consulter l'état de hiérarchisation de tous les volumes sur les clusters que vous gérez.  BlueXP Tiering génère un fichier .CSV que vous pouvez consulter et envoyer à d'autres personnes de votre entreprise selon les besoins. https://docs.netapp.com/us-en/bluexp-tiering/task-managing-tiering.html#download-a-tiering-report-for-your-volumes["Découvrez comment télécharger le rapport de hiérarchisation"] .
 
 
 
-=== Modifications du point de terminaison d'accès Internet sortant du connecteur
+== 6 décembre 2022
 
-En raison d'une modification de la hiérarchisation du cloud, vous devez modifier les points de terminaison du connecteur suivants pour une opération de hiérarchisation du cloud réussie :
+
+
+=== modifications du point de terminaison d'accès Internet sortant du connecteur
+
+En raison d'une modification apportée à la hiérarchisation du cloud, vous devez modifier les points de terminaison de connecteur suivants pour que le fonctionnement de la hiérarchisation du cloud soit réussi :
 
 [cols="50,50"]
 |===
-| Ancien point de terminaison | Nouveau point final 
+| Ancien point de terminaison | Nouveau point de terminaison 
 
 
 | \ https://cloudmanager.cloud.netapp.com | \ https://api.bluexp.netapp.com 
@@ -118,13 +118,13 @@ Consultez la liste complète des points de terminaison pour votre https://docs.n
 
 
 
-== 06 novembre 2022
+== 6 novembre 2022
 
 
 
-=== Glisser-déposer pour activer la hiérarchisation vers des destinations supplémentaires
+=== Glissez-déposez pour activer la hiérarchisation vers des destinations supplémentaires
 
-Si la destination de hiérarchisation Azure Blob, Google Cloud Storage ou StorageGRID existe en tant qu’environnement de travail sur le canevas, vous pouvez faire glisser votre environnement de travail ONTAP local sur la destination pour lancer l’assistant de configuration de la hiérarchisation.
+Si la destination de hiérarchisation Azure Blob, Google Cloud Storage ou StorageGRID existe en tant qu'environnement de travail sur le canevas, vous pouvez faire glisser votre environnement de travail ONTAP local sur la destination pour lancer l'assistant de configuration de hiérarchisation.
 
 
 
@@ -132,23 +132,23 @@ Si la destination de hiérarchisation Azure Blob, Google Cloud Storage ou Storag
 
 
 
-=== Configurer AWS PrivateLink lors de la hiérarchisation vers Amazon S3
+=== Configurez AWS PrivateLink lors du transfert vers Amazon S3.
 
-Dans les versions précédentes, il était très long de fournir ce moyen sécurisé de connecter votre cluster à un bucket S3 via un point de terminaison VPC.  Vous pouvez maintenant suivre les étapes préalables pour https://docs.netapp.com/us-en/bluexp-tiering/task-tiering-onprem-aws.html#configure-your-system-for-a-private-connection-using-a-vpc-endpoint-interface["configurez votre système pour une connexion privée à l'aide d'une interface de point de terminaison VPC"] , et vous pouvez ensuite sélectionner PrivateLink pendant l'assistant de configuration de la hiérarchisation dans la page Réseau.
+Dans les versions précédentes, il était très chronophage de fournir cette méthode sécurisée de connexion de votre cluster à un compartiment S3 via un point de terminaison VPC.  Vous pouvez maintenant suivre les étapes préalables pour https://docs.netapp.com/us-en/bluexp-tiering/task-tiering-onprem-aws.html#configure-your-system-for-a-private-connection-using-a-vpc-endpoint-interface["Configurez votre système pour une connexion privée à l'aide d'une interface de point de terminaison VPC."] Vous pourrez ensuite sélectionner PrivateLink lors de l'assistant de configuration de la hiérarchisation dans la page Réseau.
 
-https://docs.netapp.com/us-en/bluexp-tiering/task-tiering-onprem-aws.html["Consultez les exigences et les étapes pour hiérarchiser les données inactives vers Amazon S3"] .
-
-
-
-=== Glissez-déposez pour activer la hiérarchisation sur Amazon S3
-
-Si la destination de hiérarchisation Amazon S3 existe en tant qu'environnement de travail sur le canevas, vous pouvez faire glisser votre environnement de travail ONTAP sur site sur la destination pour lancer l'assistant de configuration de hiérarchisation.
+https://docs.netapp.com/us-en/bluexp-tiering/task-tiering-onprem-aws.html["Examinez les exigences et les étapes pour transférer les données inactives vers Amazon S3."].
 
 
 
-=== Choisir le comportement de hiérarchisation lors de la suppression du magasin d'objets miroir
+=== Glissez-déposez pour activer la hiérarchisation vers Amazon S3
 
-Lorsque vous supprimez le magasin d'objets miroir d'une configuration MetroCluster , vous serez invité à indiquer si vous souhaitez également supprimer le magasin d'objets principal.  Vous pouvez choisir de conserver le magasin d'objets principal attaché à l'agrégat ou de le supprimer.
+Si la destination de hiérarchisation Amazon S3 existe en tant qu'environnement de travail sur le canevas, vous pouvez faire glisser votre environnement de travail ONTAP local sur la destination pour lancer l'assistant de configuration de hiérarchisation.
+
+
+
+=== Choisissez le comportement de hiérarchisation lors de la suppression du magasin d'objets miroir
+
+Lorsque vous supprimez le magasin d'objets miroir d'une configuration MetroCluster , un message vous demandera si vous souhaitez également supprimer le magasin d'objets principal.  Vous pouvez choisir de conserver le magasin d'objets principal associé à l'agrégat, ou de le supprimer.
 
 
 
@@ -158,10 +158,10 @@ Lorsque vous supprimez le magasin d'objets miroir d'une configuration MetroClust
 
 === Configurer des magasins d'objets supplémentaires pour d'autres agrégats
 
-L'interface utilisateur Cloud Tiering a ajouté un nouvel ensemble de pages pour la configuration du stockage d'objets.  Vous pouvez ajouter de nouveaux magasins d'objets, connecter plusieurs magasins d'objets à un agrégat pour la mise en miroir de FabricPool , échanger les magasins d'objets principaux et miroirs, supprimer les connexions de magasins d'objets aux agrégats, et bien plus encore. https://docs.netapp.com/us-en/bluexp-tiering/task-managing-object-storage.html["En savoir plus sur la nouvelle fonctionnalité de stockage d’objets."]
+L'interface utilisateur de Cloud Tiering a ajouté un nouvel ensemble de pages pour la configuration du stockage d'objets.  Vous pouvez ajouter de nouveaux magasins d'objets, connecter plusieurs magasins d'objets à un agrégat pour la mise en miroir FabricPool , permuter les magasins d'objets principal et miroir, supprimer les connexions de magasins d'objets aux agrégats, et bien plus encore. https://docs.netapp.com/us-en/bluexp-tiering/task-managing-object-storage.html["Découvrez plus d'informations sur les nouvelles fonctionnalités de stockage d'objets."]
 
 
 
 === Prise en charge des licences pour les configurations MetroCluster
 
-Les licences Cloud Tiering peuvent désormais être partagées avec vos clusters qui se trouvent dans des configurations MetroCluster .  Vous n’avez plus besoin d’utiliser les licences FabricPool obsolètes pour ces scénarios.  Cela facilite l’utilisation des licences Cloud Tiering « flottantes » sur un plus grand nombre de vos clusters. https://docs.netapp.com/us-en/bluexp-tiering/task-licensing-cloud-tiering.html#apply-bluexp-tiering-licenses-to-clusters-in-special-configurations["Découvrez comment octroyer des licences et configurer ces types de clusters."]
+Les licences Cloud Tiering peuvent désormais être partagées avec vos clusters configurés en MetroCluster .  Vous n'avez plus besoin d'utiliser les licences FabricPool obsolètes pour ces scénarios.  Cela facilite l'utilisation des licences Cloud Tiering « flottantes » sur un plus grand nombre de vos clusters. https://docs.netapp.com/us-en/bluexp-tiering/task-licensing-cloud-tiering.html#apply-bluexp-tiering-licenses-to-clusters-in-special-configurations["Découvrez comment obtenir une licence et configurer ces types de clusters."]

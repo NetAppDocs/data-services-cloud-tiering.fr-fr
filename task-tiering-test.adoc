@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: task-tiering-test.html 
 keywords: throughput, latency, tiering performance, cloud performance test, tiering test, object storage performance 
-summary: Exécutez un test de performances cloud pour mesurer la latence du réseau et les performances de débit d’un cluster ONTAP vers un magasin d’objets avant et après la configuration de la hiérarchisation des données. 
+summary: 'Exécutez un test de performance cloud pour mesurer la latence réseau et le débit d"un cluster ONTAP vers un stockage d"objets avant et après la mise en place de la hiérarchisation des données.' 
 ---
-= Mesurer la latence du réseau et les performances de débit dans NetApp Cloud Tiering
+= Mesurer la latence réseau et les performances de débit dans NetApp Cloud Tiering
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,31 +14,29 @@ summary: Exécutez un test de performances cloud pour mesurer la latence du rés
 
 
 [role="lead"]
-Exécutez un test de performances cloud pour mesurer la latence du réseau et les performances de débit d'un cluster ONTAP vers un magasin d'objets avant et après la configuration de la hiérarchisation des données dans NetApp Cloud Tiering.  Le test identifie également les éventuelles défaillances survenues.
+Exécutez un test de performance cloud pour mesurer la latence réseau et les performances de débit d'un cluster ONTAP vers un stockage d'objets avant et après la configuration de la hiérarchisation des données dans NetApp Cloud Tiering.  Le test permet également d'identifier les éventuelles défaillances survenues.
 
-Voici quelques exemples de résultats de performance :
+Voici des exemples de résultats de performance :
 
-image:screenshot_cloud_performance_test.png["Une capture d'écran des résultats de performances du cluster pour un test de performances cloud."]
+image:screenshot_cloud_performance_test.png["Capture d'écran des résultats de performance du cluster pour un test de performance cloud."]
 
 .Avant de commencer
-Il est préférable d’exécuter cette vérification lorsque le cluster utilise moins de 50 % du processeur.
+Il est préférable d'exécuter cette vérification lorsque le taux d'utilisation du processeur du cluster est inférieur à 50 %.
 
 .Étapes pour un cluster qui n'a pas été configuré pour la hiérarchisation
-. Dans le menu de navigation de gauche, sélectionnez *Mobilité > Cloud Tiering*.
-. Depuis la page *Clusters*, sélectionnez l'icône de menu d'un cluster et sélectionnez *Test de performances du cloud*.
-. Vérifiez les détails et sélectionnez *Continuer*.
+. Dans le menu de navigation de gauche, sélectionnez *Mobilité > Hiérarchisation cloud*.
+. Depuis la page *Clusters*, sélectionnez l'icône de menu d'un cluster et sélectionnez *Test de performance du cloud*.
 . Vérifiez les détails et sélectionnez *Continuer*.
 . Suivez les instructions pour fournir les informations requises.
 +
 Les informations que vous devez fournir sont les mêmes que si vous configuriez la hiérarchisation sur le cluster.
 
-. Vous pouvez également continuer vers l’assistant Volumes de niveaux pour terminer la configuration.
+. Vous pouvez également poursuivre avec l'assistant de configuration des volumes hiérarchisés pour terminer la configuration.
 
 
 .Étapes pour un cluster configuré pour la hiérarchisation
-. Dans le menu de navigation de gauche, sélectionnez *Mobilité > Cloud Tiering*.
-. Depuis la page *Clusters*, sélectionnez l'icône de menu d'un cluster et sélectionnez *Test de performances du cloud*.
-. Depuis la page *Clusters*, sélectionnez l'icône de menu d'un cluster et sélectionnez *Test de performances du cloud*.
+. Dans le menu de navigation de gauche, sélectionnez *Mobilité > Hiérarchisation cloud*.
+. Depuis la page *Clusters*, sélectionnez l'icône de menu d'un cluster et sélectionnez *Test de performance du cloud*.
 . Sélectionnez un nœud dans la liste déroulante.
-. Consultez les résultats ou revérifiez les performances.
+. Consultez les résultats ou vérifiez à nouveau les performances.
 
