@@ -183,7 +183,7 @@ Les clusters ONTAP dans les configurations suivantes peuvent utiliser des licenc
 
 === Procédure pour les clusters existants disposant d'une licence FabricPool
 
-Quand vouslink:task-managing-tiering.html#discovering-additional-clusters-from-bluexp-tiering["Découvrez l'un de ces types de clusters spéciaux dans Cloud Tiering"] , Cloud Tiering reconnaît la licence FabricPool et l'ajoute à la console.  Ces groupes continueront à hiérarchiser les données comme d'habitude.  Lorsque votre licence FabricPool expirera, vous devrez acheter une licence Cloud Tiering.
+Quand vouslink:task-managing-tiering.html#discovering-additional-clusters-from-cloud-tiering["Découvrez l'un de ces types de clusters spéciaux dans Cloud Tiering"] , Cloud Tiering reconnaît la licence FabricPool et l'ajoute à la console. Ces groupes continueront à hiérarchiser les données comme d'habitude. Lorsque votre licence FabricPool expirera, vous devrez acheter une licence Cloud Tiering.
 
 
 
@@ -207,9 +207,9 @@ Notez que, puisque les données sont réparties sur deux emplacements de stockag
 +
 Ne configurez pas la hiérarchisation à ce stade.
 
-. link:task-licensing-cloud-tiering.html#use-a-bluexp-tiering-byol-license["Achetez une licence Cloud Tiering"]pour la capacité nécessaire au nouveau cluster, ou aux nouveaux clusters.
+. link:task-licensing-cloud-tiering.html#use-a-cloud-tiering-byol-license["Achetez une licence Cloud Tiering"]pour la capacité nécessaire au nouveau cluster, ou aux nouveaux clusters.
 . Dans la console<<licenses,ajouter la licence au portefeuille numérique>> [ajouter la licence].
-. Dans le Cloud Tiering,link:task-managing-tiering.html#discovering-additional-clusters-from-bluexp-tiering["découvrir les nouveaux clusters"] .
+. Dans le Cloud Tiering,link:task-managing-tiering.html#discovering-additional-clusters-from-cloud-tiering["découvrir les nouveaux clusters"] .
 . Sur la page Clusters, sélectionnezimage:screenshot_horizontal_more_button.gif["Plus d'icônes"] pour le cluster et sélectionnez *Déployer la licence*.
 +
 image:screenshot_tiering_deploy_license.png["Capture d'écran montrant comment déployer une licence de hiérarchisation sur un cluster ONTAP ."]

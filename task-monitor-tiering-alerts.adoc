@@ -22,7 +22,7 @@ Le Centre de notifications suit l'évolution des incidents de niveau afin que vo
 
 Des données supplémentaires sont transférées du cluster <nom> vers le stockage objet afin d'économiser de l'espace de stockage.
 
-Cette notification est une « recommandation » visant à améliorer l'efficacité du système et à réduire les coûts de stockage.  Cela indique qu'un cluster hiérarchise moins de 20 % de ses données froides, y compris les clusters qui ne hiérarchisent aucune donnée.  Il fournit un lien vers le https://bluexp.netapp.com/cloud-tiering-service-tco["Calculateur du coût total de possession et des économies de Cloud Tiering"^] pour vous aider à calculer vos économies.
+Cette notification est une « recommandation » visant à améliorer l'efficacité du système et à réduire les coûts de stockage. Cela indique qu'un cluster hiérarchise moins de 20 % de ses données froides, y compris les clusters qui ne hiérarchisent aucune donnée. Il fournit un lien vers le https://www.netapp.com/data-services/tiering/tco-calculator/["Calculateur du coût total de possession et des économies de Cloud Tiering"^] pour vous aider à calculer vos économies.
 
 La NetApp Console n'envoie pas d'e-mail pour cette notification.
 

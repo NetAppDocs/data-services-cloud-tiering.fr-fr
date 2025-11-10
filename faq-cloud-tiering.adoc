@@ -164,7 +164,7 @@ Oui. Vérifier https://aws.amazon.com/s3/pricing/["Tarification d'Amazon S3"] , 
 
 === Comment puis-je estimer les économies réalisées sur mes volumes et obtenir un rapport de données à froid avant d'activer le Cloud Tiering ?
 
-Pour obtenir une estimation, ajoutez votre cluster ONTAP à la NetApp Console et examinez-le via la page Cloud Tiering Clusters.  Sélectionnez *Calculer les économies potentielles liées à la hiérarchisation* pour que le cluster lance le https://bluexp.netapp.com/cloud-tiering-service-tco["Calculateur de coût total de possession (TCO) pour la hiérarchisation du cloud"^] pour voir combien d'argent vous pouvez économiser.
+Pour obtenir une estimation, ajoutez votre cluster ONTAP à la NetApp Console et examinez-le via la page Cloud Tiering Clusters. Sélectionnez *Calculer les économies potentielles liées à la hiérarchisation* pour que le cluster lance le https://www.netapp.com/data-services/tiering/tco-calculator["Calculateur de coût total de possession (TCO) pour la hiérarchisation du cloud"^] pour voir combien d'argent vous pouvez économiser.
 
 
 
@@ -214,7 +214,7 @@ Si vous disposez de systèmes Cloud Volumes ONTAP , vous les trouverez sur la pa
 
 Cela dépend de la façon dont vous hiérarchisez les données froides.  Pour plus de détails, veuillez consulter les liens suivants :
 
-* link:task-tiering-onprem-aws.html#prepare-your-ontap-cluster["Hiérarchisation des données vers Amazon S3"]
+* link:task-tiering-onprem-aws.html#preparing-your-ontap-clusters["Hiérarchisation des données vers Amazon S3"]
 * link:task-tiering-onprem-azure.html#preparing-your-ontap-clusters["Hiérarchisation des données vers le stockage Blob Azure"]
 * link:task-tiering-onprem-gcp.html#preparing-your-ontap-clusters["Stockage hiérarchisé des données vers Google Cloud Storage"]
 * link:task-tiering-onprem-storagegrid.html#preparing-your-ontap-clusters["Hiérarchisation des données vers StorageGRID"]

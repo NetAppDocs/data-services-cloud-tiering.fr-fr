@@ -66,7 +66,7 @@ Lorsque vous activez Cloud Tiering, ONTAP peut utiliser une quantité illimitée
 
 L'événement de hiérarchisation « Hier des données supplémentaires du cluster <nom> vers le stockage d'objets pour augmenter l'efficacité de votre stockage » apparaît désormais sous forme de notification lorsqu'un cluster hiérarchise moins de 20 % de ses données froides, y compris les clusters qui ne hiérarchisent aucune donnée.
 
-Cette notification est une « recommandation » pour vous aider à rendre vos systèmes plus efficaces et à économiser sur les coûts de stockage. Il fournit un lien vers le https://bluexp.netapp.com/cloud-tiering-service-tco["Calculateur du coût total de possession et des économies de Cloud Tiering"^] pour vous aider à calculer vos économies.
+Cette notification est une « recommandation » pour vous aider à rendre vos systèmes plus efficaces et à économiser sur les coûts de stockage. Il fournit un lien vers le https://www.netapp.com/data-services/tiering/tco-calculator/["Calculateur du coût total de possession et des économies de Cloud Tiering"^] pour vous aider à calculer vos économies.
 
 
 

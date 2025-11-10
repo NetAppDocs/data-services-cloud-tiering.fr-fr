@@ -114,6 +114,7 @@ https://docs.netapp.com/us-en/bluexp-ontap-onprem/task-discovering-ontap.html["A
 
 Le stockage d'objets compatible S3 doit répondre aux exigences suivantes.
 
+[[preparing-s3-compatible-object-storage]]
 Informations d'identification S3:: Lorsque vous configurez la hiérarchisation vers un stockage d'objets compatible S3, vous êtes invité à créer un compartiment S3 ou à sélectionner un compartiment S3 existant.  Vous devez fournir à Cloud Tiering une clé d'accès S3 et une clé secrète.  Cloud Tiering utilise les clés pour accéder à votre compartiment.
 +
 --

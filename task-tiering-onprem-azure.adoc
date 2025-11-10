@@ -123,7 +123,7 @@ Un agent est nécessaire pour acheminer les données vers le cloud.  Lors du tra
 
 === Vérifiez que vous disposez des autorisations d'agent nécessaires.
 
-Si vous avez créé l'agent Console en utilisant la version 3.9.25 ou une version supérieure, alors tout est prêt.  Le rôle personnalisé qui fournit les autorisations dont un agent a besoin pour gérer les ressources et les processus au sein de votre réseau Azure sera configuré par défaut.  Voir le https://docs.netapp.com/us-en/bluexp-setup-admin/reference-permissions-azure.html#custom-role-permissions["autorisations de rôle personnalisées requises"^] et le https://docs.netapp.com/us-en/bluexp-setup-admin/reference-permissions-azure.html#cloud-tiering["Autorisations spécifiques requises pour la hiérarchisation du cloud"^] .
+Si vous avez créé l'agent Console en utilisant la version 3.9.25 ou une version supérieure, alors tout est prêt. Le rôle personnalisé qui fournit les autorisations dont un agent a besoin pour gérer les ressources et les processus au sein de votre réseau Azure sera configuré par défaut. Voir le https://docs.netapp.com/us-en/console-setup-admin/reference-permissions-azure.html["autorisations de rôle personnalisées requises"^] et le https://docs.netapp.com/us-en/console-setup-admin/reference-permissions-azure.html#tiering["Autorisations spécifiques requises pour la hiérarchisation du cloud"^] .
 
 Si vous avez créé l'agent à l'aide d'une version antérieure, vous devrez modifier la liste des autorisations du compte Azure pour ajouter les autorisations manquantes.
 
