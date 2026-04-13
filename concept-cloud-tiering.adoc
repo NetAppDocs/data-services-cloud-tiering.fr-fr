@@ -13,7 +13,19 @@ summary: 'Le service Cloud Tiering de NetApp étend votre centre de données au 
 :imagesdir: ./media/
 
 
-[role="lead"]
+[NOTE]
+====
+NetApp Cloud Tiering n'est plus disponible à l'achat ni au renouvellement de licence depuis le 26 avril 2026.
+
+Les clients existants peuvent continuer à utiliser et à bénéficier du support pour NetApp Cloud Tiering jusqu'à l'expiration de leur abonnement ou de leur contrat de licence. Après l'expiration de l'abonnement, les clients n'auront plus accès aux fonctionnalités ou au support de NetApp Cloud Tiering.
+
+NetApp recommande aux clients de travailler avec leur représentant NetApp pour migrer leurs licences de hiérarchisation existantes vers des licences ONTAP FabricPool, qui offrent la fonctionnalité de hiérarchisation des données dans ONTAP. Voir link:https://docs.netapp.com/us-en/ontap/fabricpool/install-license-aws-azure-ibm-task.html["Installez une licence FabricPool sur un cluster ONTAP"] pour plus d'informations sur la configuration de la hiérarchisation des données dans ONTAP à l'aide de FabricPool.
+
+* link:https://go.digital.netapp.com/rs/683-HWH-936/images/Cloud-Tiering-EOA-Notice2.pdf?version=0&mkt_tok=NjgzLUhXSC05MzYAAAGgvTOT_9L2PauNXYE0fOs0RIz8KK2q5Jb6sg8Yv-97NNJ53ceAab9UAqpKOrAvByxsOWqhIQHNCHgFfM0q3TI["NetApp Cloud Tiering Avis de fin de disponibilité"]
+* link:https://go.digital.netapp.com/rs/683-HWH-936/images/Cloud-Tiering-EOA-FAQ-v3.pdf?version=0&mkt_tok=NjgzLUhXSC05MzYAAAGgvTOT_rplJe_ZtlY4PQAQRQlewsDa0W4JR55muT0KCThR46zI7-uOhIYfVsxODDKFrnYYvy5uZzvhEKHOwBI["NetApp Cloud Tiering FAQ sur la fin de disponibilité"]
+
+
+====
 NetApp Cloud Tiering étend votre centre de données au cloud en hiérarchisant automatiquement les données inactives des clusters ONTAP sur site vers le stockage objet.  Cela libère un espace précieux sur le cluster pour davantage de charges de travail, sans modifier la couche applicative.  La hiérarchisation du cloud peut réduire les coûts de votre centre de données et vous permet de passer d'un modèle CAPEX à un modèle OPEX.
 
 Cloud Tiering exploite les capacités de _FabricPool_.  FabricPool est une technologie NetApp Data Fabric qui permet la hiérarchisation automatisée des données vers un stockage objet à faible coût.  Les données actives (chaudes) restent sur le niveau local (agrégats ONTAP sur site), tandis que les données inactives (froides) sont déplacées vers le niveau cloud, tout en préservant l'efficacité des données ONTAP .
@@ -70,7 +82,7 @@ Vous pouvez transférer les données inactives d'un système ONTAP sur site vers
 * Stockage d'objets compatible S3 (par exemple, MinIO)
 
 
-Les licences Cloud Tiering peuvent également être partagées avec vos clusters qui hiérarchisent les données vers IBM Cloud Object Storage. La configuration de FabricPool doit être effectuée à l'aide de System Manager ou de l'interface de ligne de commande ONTAP , maislink:task-licensing-cloud-tiering.html#apply-cloud-tiering-licenses-to-clusters-in-special-configurations["L'octroi de licences pour ce type de configuration est réalisé à l'aide de Cloud Tiering."]
+Les licences Cloud Tiering peuvent également être partagées avec vos clusters qui hiérarchisent les données vers IBM Cloud Object Storage. La configuration FabricPool doit être effectuée à l'aide de System Manager ou de l'interface de ligne de commande ONTAP, mais link:task-licensing-cloud-tiering.html["L'octroi de licences pour ce type de configuration est réalisé à l'aide de Cloud Tiering."]
 
 
 NOTE: Vous pouvez répartir les données des volumes NAS vers le cloud public ou vers des clouds privés, comme StorageGRID.  Lors de la hiérarchisation des données accessibles via les protocoles SAN, NetApp recommande l'utilisation de clouds privés en raison de problèmes de connectivité.
@@ -131,7 +143,7 @@ Par exemple, si vous disposez d'une licence de 10 To, toute capacité au-delà d
 
 Vous ne serez pas facturé sur votre abonnement à la carte pendant votre période d'essai gratuite ou si vous n'avez pas dépassé votre licence BYOL de Cloud Tiering.
 
-link:task-licensing-cloud-tiering.html#use-a-cloud-tiering-paygo-subscription["Découvrez comment configurer un abonnement à la carte"].
+link:task-licensing-cloud-tiering.html["Découvrez comment configurer un abonnement à la carte"].
 
 
 
@@ -147,12 +159,12 @@ Les contrats annuels ne sont actuellement pas pris en charge lors du passage à 
 
 Apportez votre propre licence en achetant une licence *Cloud Tiering* auprès de NetApp (anciennement connue sous le nom de licence « Cloud Tiering »).  Vous pouvez acheter des licences d'une durée de 1, 2 ou 3 ans et spécifier n'importe quel niveau de capacité de stockage (à partir d'un minimum de 10 Tio).  La licence BYOL Cloud Tiering est une licence _flottante_ que vous pouvez utiliser sur plusieurs clusters ONTAP sur site.  La capacité totale de hiérarchisation que vous définissez dans votre licence Cloud Tiering peut être utilisée par tous vos clusters sur site.
 
-Après avoir acheté une licence Cloud Tiering, vous devrez ajouter cette licence à la NetApp Console. link:task-licensing-cloud-tiering.html#use-a-cloud-tiering-byol-license["Découvrez comment utiliser une licence BYOL de Cloud Tiering"].
+Après avoir acheté une licence Cloud Tiering, vous devrez l'ajouter à la NetApp Console. link:task-licensing-cloud-tiering.html["Découvrez comment utiliser une licence BYOL de Cloud Tiering"].
 
 Comme indiqué ci-dessus, nous vous recommandons de mettre en place un abonnement à la carte, même si vous avez acheté une licence BYOL.
 
 
-NOTE: À compter d'août 2021, l'ancienne licence * FabricPool* a été remplacée par la licence *Cloud Tiering*. link:task-licensing-cloud-tiering.html#cloud-tiering-byol-licensing-starting-in-2021["Découvrez en détail les différences entre la licence Cloud Tiering et la licence FabricPool ."].
+NOTE: À compter d'août 2021, l'ancienne licence *FabricPool* a été remplacée par la licence *Cloud Tiering*. link:task-licensing-cloud-tiering.html["Découvrez en détail les différences entre la licence Cloud Tiering et la licence FabricPool ."].
 
 
 
