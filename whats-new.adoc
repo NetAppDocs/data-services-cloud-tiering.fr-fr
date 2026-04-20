@@ -20,8 +20,10 @@ Découvrez les nouveautés de NetApp Cloud Tiering.
 
 == 13 avril 2026
 
-[NOTE]
-====
+
+
+=== NetApp Cloud Tiering n'est plus proposé
+
 NetApp Cloud Tiering n'est plus disponible à l'achat ni au renouvellement de licence depuis le 26 avril 2026.
 
 Les clients existants peuvent continuer à utiliser et à bénéficier du support pour NetApp Cloud Tiering jusqu'à l'expiration de leur abonnement ou de leur contrat de licence. Après l'expiration de l'abonnement, les clients n'auront plus accès aux fonctionnalités ou au support de NetApp Cloud Tiering.
@@ -32,7 +34,6 @@ NetApp recommande aux clients de travailler avec leur représentant NetApp pour 
 * link:https://go.digital.netapp.com/rs/683-HWH-936/images/Cloud-Tiering-EOA-FAQ-v3.pdf?version=0&mkt_tok=NjgzLUhXSC05MzYAAAGgvTOT_rplJe_ZtlY4PQAQRQlewsDa0W4JR55muT0KCThR46zI7-uOhIYfVsxODDKFrnYYvy5uZzvhEKHOwBI["NetApp Cloud Tiering FAQ sur la fin de disponibilité"]
 
 
-====
 
 
 == 6 octobre 2025
